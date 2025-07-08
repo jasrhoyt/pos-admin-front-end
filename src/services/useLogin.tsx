@@ -9,13 +9,11 @@ export const useLogin = (): {
 
     return {
         login: async (email: string, password: string) => {
-            console.log("test value")
             try {
-                const { data } = await axios.post(`${endpoint}login/`, { email: email, password: password })
-                console.log('2 test value:', data)
+                const { data } = await axios.post(`${endpoint}login/`, { email, password })
                 return data
             } catch (e: any) {
-                console.log("3 test value", e)
+                return e.response.data
             }
         }
     }
