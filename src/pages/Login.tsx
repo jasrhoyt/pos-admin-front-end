@@ -2,11 +2,14 @@ import { Stack, Box, TextField, Grid, Button, ThemeProvider } from "@mui/materia
 import backgroundImage from '../assets/pooches.jpg'
 import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
+import { useLogin } from "../services/useLogin";
 
 export const Login = () => {
 
     const [ email, setEmail ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");
+
+    const { login } = useLogin();
 
     return (
         <ThemeProvider theme={LoginTheme}>
@@ -41,7 +44,7 @@ export const Login = () => {
                             value={password}
                         />
                         <Grid>
-                            <Button>Login</Button>
+                            <Button onClick={ async () => await login(email, password)}>Login</Button>
                             <Button>Forgot Password?</Button>
                         </Grid>
                     </Stack>
