@@ -1,4 +1,4 @@
-import { Stack, Box, TextField, Grid, Button, ThemeProvider } from "@mui/material"
+import { Stack, Box, TextField, Grid, Button, ThemeProvider, Link } from "@mui/material"
 import backgroundImage from '../assets/pooches.jpg'
 import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export const Login = () => {
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
-                        display: 'flex',                // Center content
+                        display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}
@@ -34,7 +34,7 @@ export const Login = () => {
                     <Stack spacing={2} sx={{ backgroundColor: "white", width: '25%', padding: "2rem", borderRadius: 2 }}>
                         <TextField
                             onChange={(e) => setEmail(e.target.value)}
-                            label="Username"
+                            label="Email"
                             value={email}
                         />
                         <TextField
@@ -43,9 +43,16 @@ export const Login = () => {
                             type="password"
                             value={password}
                         />
-                        <Grid>
+                        <Box sx={{ padding: "0 5rem" }}>
                             <Button onClick={ async () => await login(email, password)}>Login</Button>
-                            <Button>Forgot Password?</Button>
+                        </Box>
+                        <Grid container spacing={2} justifyContent={'space-between'}>
+                            <Grid>
+                                <Link>Forgot Password?</Link>
+                            </Grid>
+                            <Grid>
+                                <Link>Sign Up!</Link>
+                            </Grid>
                         </Grid>
                     </Stack>
                 </Box>

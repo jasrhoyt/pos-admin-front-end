@@ -11,21 +11,36 @@ export const LoginTheme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
                 },
             },
         },
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: '#000000', // black label
+                    color: 'black',
                 },
             },
         },
         MuiButton: {
             defaultProps: {
                 fullWidth: true,
+                sx: {
+                    color: "black",
+                    backgroundColor: "lightblue",
+                    '&:hover': {
+                        color: "white",
+                        backgroundColor: "darkblue",
+                    },
+                },
             },
         },
+        MuiLink: {
+            defaultProps: {
+                sx: {
+                    color: 'black',
+                    cursor: 'pointer'
+                },
+            }
+        }
     },
 });
