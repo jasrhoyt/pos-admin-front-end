@@ -31,7 +31,7 @@ export const Login = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Stack spacing={2} sx={{ backgroundColor: "white", width: '25%', padding: "2rem", borderRadius: 2 }}>
+                    <Stack spacing={2} sx={{ backgroundColor: "white", width: { sm: "70%", lg: "40%", xl: '25%'}, padding: "2rem", borderRadius: "8px" }}>
                         <TextField
                             onChange={(e) => setEmail(e.target.value)}
                             label="Email"

@@ -38,7 +38,9 @@ export const LoginTheme = createTheme({
             defaultProps: {
                 sx: {
                     color: 'black',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    textDecorationColor: 'currentColor',
                 },
             }
         }
