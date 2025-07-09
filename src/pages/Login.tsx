@@ -63,7 +63,7 @@ export const Login = () => {
                         <Typography>{errorMessage}</Typography>
                         <Grid container spacing={2} justifyContent={'space-between'}>
                             <Grid>
-                                <Link>
+                                <Link component={RouterLink} to="/reset-password">
                                     Forgot Password?
                                 </Link>
                             </Grid>
