@@ -43,6 +43,15 @@ export const LoginTheme = createTheme({
                     textDecorationColor: 'currentColor',
                 },
             }
+        },
+        MuiTypography: {
+            defaultProps: {
+                sx: {
+                    color: 'red',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }
+            }
         }
     },
 });

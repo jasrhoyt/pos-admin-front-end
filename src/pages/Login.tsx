@@ -1,15 +1,20 @@
-import { Stack, Box, TextField, Grid, Button, ThemeProvider, Link } from "@mui/material"
+import {Stack, Box, TextField, Grid, Button, ThemeProvider, Link, Typography} from "@mui/material"
+import { Link as RouterLink } from 'react-router-dom';
 import backgroundImage from '../assets/pooches.jpg'
 import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+
+    const { login } = useLogin();
+    const navigate = useNavigate();
 
     const [ email, setEmail ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");
 
-    const { login } = useLogin();
+    const [ errorMessage, setErrorMessage ] = useState<string>();
 
     return (
         <ThemeProvider theme={LoginTheme}>
@@ -44,14 +49,28 @@ export const Login = () => {
                             value={password}
                         />
                         <Box sx={{ padding: "0 5rem" }}>
-                            <Button onClick={ async () => await login(email, password)}>Login</Button>
+                            <Button onClick={async () => {
+                                const response = await login(email, password);
+                                if (response.detail) {
+                                    setErrorMessage(response.detail);
+                                } else {
+                                    navigate("/dashboard");
+                                }
+                            }}>
+                                Login
+                            </Button>
                         </Box>
+                        <Typography>{errorMessage}</Typography>
                         <Grid container spacing={2} justifyContent={'space-between'}>
                             <Grid>
-                                <Link>Forgot Password?</Link>
+                                <Link>
+                                    Forgot Password?
+                                </Link>
                             </Grid>
                             <Grid>
-                                <Link>Sign Up!</Link>
+                                <Link component={RouterLink} to="/register">
+                                    Don’t have an account? Register here
+                                </Link>
                             </Grid>
                         </Grid>
                     </Stack>
