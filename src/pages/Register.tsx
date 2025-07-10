@@ -12,12 +12,15 @@ import {
     MenuItem, Tooltip
 } from "@mui/material";
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {RegisterTheme} from "../themes/RegisterTheme";
 import backgroundImage from "../assets/pooches.jpg";
+import {useAdmin} from "../services/useAdmin";
 
 
 export const Register = () => {
+
+    const { getStates } = useAdmin()
 
     const [ firstName, setFirstName ] = useState<string>();
     const [ lastName, setLastName ] = useState<string>();
@@ -27,7 +30,16 @@ export const Register = () => {
     const [ state, setState ] = useState<string>();
     const [ zipcode, setZipcode ] = useState<string>();
     const [ phoneNumber, setPhoneNumber ] = useState<string>();
+
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
+    const [stateOptions, setStateOptions] = useState<any[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            const states = await getStates();
+            setStateOptions(states);
+        })();
+    }, []);
 
     return (
         <ThemeProvider theme={RegisterTheme}>
@@ -133,11 +145,10 @@ export const Register = () => {
 
                                     <Select
                                         labelId="state-label"
-                                        value={state}
-                                        onChange={(e) => setState(e.target.value)}
+                                        value={state || ''}
                                         onOpen={() => setIsStateDropdownOpen(true)}
                                         onClose={() => setIsStateDropdownOpen(false)}
-                                        displayEmpty
+                                        displayEmpty={!isStateDropdownOpen}
                                         label={isStateDropdownOpen ? "State" : undefined}
                                         renderValue={(selected) => {
                                             if (!selected) {
@@ -154,9 +165,16 @@ export const Register = () => {
                                             return selected;
                                         }}
                                     >
-                                        <MenuItem value="NY">New York</MenuItem>
-                                        <MenuItem value="CA">California</MenuItem>
-                                        <MenuItem value="TX">Texas</MenuItem>
+                                        {stateOptions.map((state: any, index: number) => {
+                                            return (
+                                                <MenuItem
+                                                    key={`state-dropdown-item-${index}`}
+                                                    onClick={(e) => setState(state.state_name)}
+                                                >
+                                                    {state.state_name}
+                                                </MenuItem>
+                                            )
+                                        })}
                                     </Select>
                                 </FormControl>
                             </Grid>
