@@ -57,6 +57,16 @@ export const RegisterTheme = createTheme({
                     justifyContent: 'center',
                 }
             }
+        },
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    backgroundColor: 'red',
+                    color: 'white',
+                    borderRadius: '8px',
+                    textAlign: "center"
+                },
+            },
         }
     },
 });

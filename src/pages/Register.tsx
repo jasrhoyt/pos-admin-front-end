@@ -9,7 +9,8 @@ import {
     Typography,
     Select,
     InputLabel,
-    MenuItem, Tooltip
+    MenuItem,
+    Tooltip
 } from "@mui/material";
 import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import {useEffect, useState} from "react";
@@ -67,20 +68,20 @@ export const Register = () => {
                         borderRadius: "8px",
                     }}
                 >
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5">
                         User Info
                     </Typography>
 
                     <Box>
                         <Grid container spacing={2}>
                             <Grid size={6}>
-                                <FormControl fullWidth>
+                                {/*<FormControl fullWidth>*/}
                                     <TextField
                                         label="First Name"
                                         value={firstName}
                                         onChange={(e) => setFirstName(e.target.value)}
                                     />
-                                </FormControl>
+                                {/*</FormControl>*/}
                             </Grid>
                             <Grid size={6}>
                                 <FormControl fullWidth>
@@ -106,7 +107,7 @@ export const Register = () => {
                                 </FormControl>
                             </Grid>
                             <Grid size={1}>
-                                <Tooltip arrow title={<Typography>"Address of the restaurant or parent company"</Typography>}>
+                                <Tooltip arrow title={<Typography>Address of the restaurant or parent company</Typography>}>
                                     <InfoOutlineIcon sx={{ fontSize: 28, cursor: 'pointer' }} />
                                 </Tooltip>
                             </Grid>
@@ -114,7 +115,7 @@ export const Register = () => {
 
                     </Box>
 
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5">
                         Company Address
                     </Typography>
 
