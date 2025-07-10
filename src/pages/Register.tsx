@@ -68,142 +68,144 @@ export const Register = () => {
                         borderRadius: "8px",
                     }}
                 >
-                    <Typography variant="h5">
-                        User Info
-                    </Typography>
-
                     <Box>
-                        <Grid container spacing={2}>
-                            <Grid size={6}>
-                                {/*<FormControl fullWidth>*/}
-                                    <TextField
-                                        label="First Name"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                {/*</FormControl>*/}
-                            </Grid>
-                            <Grid size={6}>
-                                <FormControl fullWidth>
-                                    <TextField
-                                        label="Last Name"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </Box>
-
-                    <Box>
-                        <Grid container spacing={2} alignItems="center">
-                            <Grid size={11}>
-                                <FormControl fullWidth>
-                                    <TextField
-                                        label="Company Name"
-                                        value={companyName}
-                                        onChange={(e) => setCompanyName(e.target.value)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid size={1}>
-                                <Tooltip arrow title={<Typography>Address of the restaurant or parent company</Typography>}>
-                                    <InfoOutlineIcon sx={{ fontSize: 28, cursor: 'pointer' }} />
-                                </Tooltip>
-                            </Grid>
-                        </Grid>
-
-                    </Box>
-
-                    <Typography variant="h5">
-                        Company Address
-                    </Typography>
-
-                    <Box>
-                        <FormControl fullWidth>
-                            <TextField
-                                label="Street Address"
-                                value={streetAddress}
-                                onChange={(e) => setStreetAddress(e.target.value)}
-                            />
-                        </FormControl>
-                    </Box>
-
-                    <Box>
-                        <Grid container spacing={2}>
-                            <Grid size={6}>
-                                <FormControl fullWidth>
-                                    <TextField
-                                        label="City"
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid size={6}>
-                                <FormControl fullWidth>
-                                    {isStateDropdownOpen && <InputLabel id="state-label">State</InputLabel>}
-
-                                    <Select
-                                        labelId="state-label"
-                                        value={state || ''}
-                                        onOpen={() => setIsStateDropdownOpen(true)}
-                                        onClose={() => setIsStateDropdownOpen(false)}
-                                        displayEmpty={!isStateDropdownOpen}
-                                        label={isStateDropdownOpen ? "State" : undefined}
-                                        renderValue={(selected) => {
-                                            if (!selected) {
-                                                return <Typography
-                                                    sx={{
-                                                        color: 'inherit !important', // or any specific color you want
-                                                        display: 'flex',
-                                                        justifyContent: 'flex-start',
-                                                    }}
-                                                >
-                                                    Select State
-                                                </Typography>;
-                                            }
-                                            return selected;
-                                        }}
-                                    >
-                                        {stateOptions.map((state: any, index: number) => {
-                                            return (
-                                                <MenuItem
-                                                    key={`state-dropdown-item-${index}`}
-                                                    onClick={(e) => setState(state.state_name)}
-                                                >
-                                                    {state.state_name}
-                                                </MenuItem>
-                                            )
-                                        })}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                    <Box>
-                        <Box>
-                            <Grid container spacing={2}>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Zipcode"
-                                            value={zipcode}
-                                            onChange={(e) => setZipcode(e.target.value)}
-                                        />
-                                    </FormControl>
+                        <Stack spacing={2}>
+                            <Typography variant="h5">
+                                User Info
+                            </Typography>
+                            <Box>
+                                <Grid container spacing={2}>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="First Name"
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Last Name"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
                                 </Grid>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Phone Number"
-                                            value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                        />
-                                    </FormControl>
+                            </Box>
+                            <Box>
+                                <Grid container spacing={2} alignItems="center">
+                                    <Grid size={11}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Company Name"
+                                                value={companyName}
+                                                onChange={(e) => setCompanyName(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid size={1}>
+                                        <Tooltip arrow title={<Typography>Address of the restaurant or parent company</Typography>}>
+                                            <InfoOutlineIcon sx={{ fontSize: 28, cursor: 'pointer' }} />
+                                        </Tooltip>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Box>
+                            </Box>
+                        </Stack>
+                    </Box>
+                    <Box>
+                        <Stack spacing={2}>
+                            <Typography variant="h5">
+                                Company Address
+                            </Typography>
+                            <Box>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="Street Address"
+                                        value={streetAddress}
+                                        onChange={(e) => setStreetAddress(e.target.value)}
+                                    />
+                                </FormControl>
+                            </Box>
+                            <Box>
+                                <Grid container spacing={2}>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="City"
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            {isStateDropdownOpen && <InputLabel id="state-label">State</InputLabel>}
+
+                                            <Select
+                                                labelId="state-label"
+                                                value={state || ''}
+                                                onOpen={() => setIsStateDropdownOpen(true)}
+                                                onClose={() => setIsStateDropdownOpen(false)}
+                                                displayEmpty={!isStateDropdownOpen}
+                                                label={isStateDropdownOpen ? "State" : undefined}
+                                                renderValue={(selected) => {
+                                                    if (!selected) {
+                                                        return <Typography
+                                                            sx={{
+                                                                color: 'inherit !important', // or any specific color you want
+                                                                display: 'flex',
+                                                                justifyContent: 'flex-start',
+                                                            }}
+                                                        >
+                                                            Select State
+                                                        </Typography>;
+                                                    }
+                                                    return selected;
+                                                }}
+                                            >
+                                                {stateOptions.map((state: any, index: number) => {
+                                                    return (
+                                                        <MenuItem
+                                                            key={`state-dropdown-item-${index}`}
+                                                            onClick={(e) => setState(state.state_name)}
+                                                        >
+                                                            {state.state_name}
+                                                        </MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box>
+                                <Box>
+                                    <Grid container spacing={2}>
+                                        <Grid size={6}>
+                                            <FormControl fullWidth>
+                                                <TextField
+                                                    label="Zipcode"
+                                                    value={zipcode}
+                                                    onChange={(e) => setZipcode(e.target.value)}
+                                                />
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid size={6}>
+                                            <FormControl fullWidth>
+                                                <TextField
+                                                    label="Phone Number"
+                                                    value={phoneNumber}
+                                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                                />
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Box>
+                        </Stack>
                     </Box>
                 </Stack>
             </Box>

@@ -5,11 +5,18 @@ export const RegisterTheme = createTheme({
         MuiTextField: {
             defaultProps: {
                 fullWidth: true,
+                sx: {
+                    backgroundColor: '#aac8d8',
+                    borderRadius: '8px'
+                }
             },
         },
         MuiSelect: {
             defaultProps: {
                 fullWidth: true,
+                sx: {
+                    backgroundColor: '#aac8d8',
+                }
             },
         },
         MuiOutlinedInput: {
@@ -61,11 +68,14 @@ export const RegisterTheme = createTheme({
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    backgroundColor: 'red',
+                    backgroundColor: '#ffcc6e',
                     color: 'white',
                     borderRadius: '8px',
                     textAlign: "center"
                 },
+                arrow: {
+                    color: '#ffcc6e',
+                }
             },
         }
     },
