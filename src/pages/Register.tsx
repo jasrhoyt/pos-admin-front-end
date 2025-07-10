@@ -17,23 +17,31 @@ import {useEffect, useState} from "react";
 import {RegisterTheme} from "../themes/RegisterTheme";
 import backgroundImage from "../assets/pooches.jpg";
 import {useAdmin} from "../services/useAdmin";
+import {useLogin} from "../services/useLogin";
+import {useNavigate} from "react-router-dom";
 
 
 export const Register = () => {
 
     const { getStates } = useAdmin()
+    const { postAdmin } = useLogin();
+    const navigate = useNavigate();
 
-    const [ firstName, setFirstName ] = useState<string>();
-    const [ lastName, setLastName ] = useState<string>();
-    const [ companyName, setCompanyName ] = useState<string>();
-    const [ streetAddress, setStreetAddress ] = useState<string>();
-    const [ city, setCity ] = useState<string>();
-    const [ state, setState ] = useState<string>();
-    const [ zipcode, setZipcode ] = useState<string>();
-    const [ phoneNumber, setPhoneNumber ] = useState<string>();
+    const [ firstName, setFirstName ] = useState<string>("");
+    const [ lastName, setLastName ] = useState<string>("");
+    const [ companyName, setCompanyName ] = useState<string>("");
+    const [ companyEmail, setCompanyEmail ] = useState<string>("");
+    const [ password, setPassword ] = useState<string>("");
+    const [ verifyPassword, setVerifyPassword ] = useState<string>("");
+    const [ streetAddress, setStreetAddress ] = useState<string>("");
+    const [ city, setCity ] = useState<string>("");
+    const [ state, setState ] = useState<string>("");
+    const [ zipcode, setZipcode ] = useState<string>("");
+    const [ phoneNumber, setPhoneNumber ] = useState<string>("");
 
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
-    const [stateOptions, setStateOptions] = useState<any[]>([]);
+    const [ stateOptions, setStateOptions ] = useState<any[]>([]);
+    const [ errorMessage, setErrorMessage ] = useState<string>("");
 
     useEffect(() => {
         (async () => {
@@ -78,7 +86,7 @@ export const Register = () => {
                                     <Grid size={6}>
                                         <FormControl fullWidth>
                                             <TextField
-                                                label="First Name"
+                                                label="First Name *"
                                                 value={firstName}
                                                 onChange={(e) => setFirstName(e.target.value)}
                                             />
@@ -87,7 +95,7 @@ export const Register = () => {
                                     <Grid size={6}>
                                         <FormControl fullWidth>
                                             <TextField
-                                                label="Last Name"
+                                                label="Last Name *"
                                                 value={lastName}
                                                 onChange={(e) => setLastName(e.target.value)}
                                             />
@@ -100,7 +108,7 @@ export const Register = () => {
                                     <Grid size={11}>
                                         <FormControl fullWidth>
                                             <TextField
-                                                label="Company Name"
+                                                label="Company Name *"
                                                 value={companyName}
                                                 onChange={(e) => setCompanyName(e.target.value)}
                                             />
@@ -110,6 +118,43 @@ export const Register = () => {
                                         <Tooltip arrow title={<Typography>Address of the restaurant or parent company</Typography>}>
                                             <InfoOutlineIcon sx={{ fontSize: 28, cursor: 'pointer' }} />
                                         </Tooltip>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            <Box>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="Company Email *"
+                                        value={companyEmail}
+                                        type='email'
+                                        autoComplete="off"
+                                        onChange={(e) => setCompanyEmail(e.target.value)}
+                                    />
+                                </FormControl>
+                            </Box>
+                            <Box>
+                                <Grid container spacing={2}>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Password *"
+                                                value={password}
+                                                type="password"
+                                                autoComplete="new-password"
+                                                onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Verify Password *"
+                                                value={verifyPassword}
+                                                type="password"
+                                                autoComplete="new-password"
+                                                onChange={(e) => setVerifyPassword(e.target.value)}
+                                            />
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -123,7 +168,7 @@ export const Register = () => {
                             <Box>
                                 <FormControl fullWidth>
                                     <TextField
-                                        label="Street Address"
+                                        label="Street Address *"
                                         value={streetAddress}
                                         onChange={(e) => setStreetAddress(e.target.value)}
                                     />
@@ -134,7 +179,7 @@ export const Register = () => {
                                     <Grid size={6}>
                                         <FormControl fullWidth>
                                             <TextField
-                                                label="City"
+                                                label="City *"
                                                 value={city}
                                                 onChange={(e) => setCity(e.target.value)}
                                             />
@@ -160,7 +205,7 @@ export const Register = () => {
                                                                 justifyContent: 'flex-start',
                                                             }}
                                                         >
-                                                            Select State
+                                                            Select State *
                                                         </Typography>;
                                                     }
                                                     return selected;
@@ -182,31 +227,53 @@ export const Register = () => {
                                 </Grid>
                             </Box>
                             <Box>
-                                <Box>
-                                    <Grid container spacing={2}>
-                                        <Grid size={6}>
-                                            <FormControl fullWidth>
-                                                <TextField
-                                                    label="Zipcode"
-                                                    value={zipcode}
-                                                    onChange={(e) => setZipcode(e.target.value)}
-                                                />
-                                            </FormControl>
-                                        </Grid>
-                                        <Grid size={6}>
-                                            <FormControl fullWidth>
-                                                <TextField
-                                                    label="Phone Number"
-                                                    value={phoneNumber}
-                                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                                />
-                                            </FormControl>
-                                        </Grid>
+                                <Grid container spacing={2}>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Zipcode *"
+                                                value={zipcode}
+                                                onChange={(e) => setZipcode(e.target.value)}
+                                            />
+                                        </FormControl>
                                     </Grid>
-                                </Box>
+                                    <Grid size={6}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                label="Phone Number *"
+                                                value={phoneNumber}
+                                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
                             </Box>
                         </Stack>
                     </Box>
+                    <Box display="flex" justifyContent='center'>
+                        <Button onClick={async () => {
+                            const response = await postAdmin(
+                                firstName,
+                                lastName,
+                                companyName,
+                                companyEmail,
+                                password,
+                                streetAddress,
+                                city,
+                                state,
+                                zipcode,
+                                phoneNumber
+                            );
+                            if (response.detail) {
+                                setErrorMessage(response.detail);
+                            } else {
+                                navigate("/dashboard");
+                            }
+                        }}>
+                            Register for PoS-Systems
+                        </Button>
+                    </Box>
+                    <Typography>{errorMessage}</Typography>
                 </Stack>
             </Box>
         </ThemeProvider>

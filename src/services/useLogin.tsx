@@ -3,7 +3,7 @@ import {useConfig} from "./useConfig";
 
 export const useLogin = (): {
     login: (email: string, password: string) => Promise<any>,
-    postAdmin: (firstName: string, lastName: string, companyName: string, email: string, password: string) => Promise<any>
+    postAdmin: (firstName: string, lastName: string, companyName: string, email: string, password: string, streetAddress: string, city: string, state: string, zipcode: string, phoneNumber: string) => Promise<any>
 } => {
 
     const { endpoint, axiosConfig } = useConfig()
@@ -17,11 +17,26 @@ export const useLogin = (): {
                 return e.response.data
             }
         },
-        postAdmin: async (firstName: string, lastName: string, companyName: string, email: string, password: string) => {
+        postAdmin: async (firstName: string, lastName: string, companyName: string, email: string, password: string, streetAddress: string, city: string, state: string, zipcode: string, phoneNumber: string) => {
             try {
-                const { data } = await axios.post(`${endpoint}admin`, { email, password })
+                const { data } = await axios.post(`${endpoint}admin`, {
+                    first_name: firstName,
+                    last_name: lastName,
+                    company_name: companyName,
+                    email,
+                    password,
+                    address: {
+                        street_address: streetAddress,
+                        city,
+                        state,
+                        zipcode
+                    },
+                    phone_number: phoneNumber
+                });
+                console.log("Success!! test value:")
                 return data
             } catch (e: any) {
+                console.log("Failure test value:", e.response.data)
                 return e.response.data
             }
         }

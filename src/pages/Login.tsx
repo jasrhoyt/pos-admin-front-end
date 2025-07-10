@@ -1,4 +1,4 @@
-import {Stack, Box, TextField, Grid, Button, ThemeProvider, Link, Typography} from "@mui/material"
+import {Stack, Box, TextField, Grid, Button, ThemeProvider, Link, Typography, FormControl} from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom';
 import backgroundImage from '../assets/pooches.jpg'
 import { LoginTheme } from "../themes/LoginTheme";
@@ -37,17 +37,21 @@ export const Login = () => {
                     }}
                 >
                     <Stack spacing={2} sx={{ backgroundColor: "white", width: { sm: "70%", lg: "40%", xl: '25%'}, padding: "2rem", borderRadius: "8px" }}>
-                        <TextField
-                            onChange={(e) => setEmail(e.target.value)}
-                            label="Email"
-                            value={email}
-                        />
-                        <TextField
-                            onChange={(e) => setPassword(e.target.value)}
-                            label="Password"
-                            type="password"
-                            value={password}
-                        />
+                        <FormControl fullWidth>
+                            <TextField
+                                onChange={(e) => setEmail(e.target.value)}
+                                label="Email"
+                                value={email}
+                            />
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <TextField
+                                onChange={(e) => setPassword(e.target.value)}
+                                label="Password"
+                                type="password"
+                                value={password}
+                            />
+                        </FormControl>
                         <Box sx={{ padding: "0 5rem" }}>
                             <Button onClick={async () => {
                                 const response = await login(email, password);

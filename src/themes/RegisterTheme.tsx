@@ -6,7 +6,7 @@ export const RegisterTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: '#aac8d8',
+                    backgroundColor: 'lightblue',
                     borderRadius: '8px'
                 }
             },
@@ -15,7 +15,7 @@ export const RegisterTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: '#aac8d8',
+                    backgroundColor: 'lightblue',
                 }
             },
         },
@@ -35,13 +35,14 @@ export const RegisterTheme = createTheme({
         },
         MuiButton: {
             defaultProps: {
-                fullWidth: true,
                 sx: {
                     color: "black",
                     backgroundColor: "lightblue",
+                    border: "1px solid rgba(0, 0, 0, 0.23)",
+                    borderRadius: "8px",
+                    textTransform: "none",
                     '&:hover': {
-                        color: "white",
-                        backgroundColor: "darkblue",
+                        backgroundColor: "#fcf5c7",
                     },
                 },
             },
@@ -68,7 +69,7 @@ export const RegisterTheme = createTheme({
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    backgroundColor: '#ffcc6e',
+                    backgroundColor: '#fcf5c7',
                     color: 'white',
                     borderRadius: '8px',
                     textAlign: "center"
