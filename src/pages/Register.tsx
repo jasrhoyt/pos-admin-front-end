@@ -273,7 +273,7 @@ export const Register = () => {
                             Register for PoS-Systems
                         </Button>
                     </Box>
-                    <Typography>{errorMessage}</Typography>
+                    <Typography sx={{ color: "red", display: "flex", justifyContent: "center" }}>{errorMessage}</Typography>
                 </Stack>
             </Box>
         </ThemeProvider>
