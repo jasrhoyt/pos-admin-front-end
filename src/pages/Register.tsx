@@ -27,21 +27,25 @@ export const Register = () => {
     const { postAdmin } = useLogin();
     const navigate = useNavigate();
 
-    const [ firstName, setFirstName ] = useState<string>("");
-    const [ lastName, setLastName ] = useState<string>("");
-    const [ companyName, setCompanyName ] = useState<string>("");
-    const [ companyEmail, setCompanyEmail ] = useState<string>("");
-    const [ password, setPassword ] = useState<string>("");
-    const [ verifyPassword, setVerifyPassword ] = useState<string>("");
-    const [ streetAddress, setStreetAddress ] = useState<string>("");
-    const [ city, setCity ] = useState<string>("");
-    const [ state, setState ] = useState<string>("");
-    const [ zipcode, setZipcode ] = useState<string>("");
-    const [ phoneNumber, setPhoneNumber ] = useState<string>("");
+    const [ firstName, setFirstName ] = useState<string | undefined>();
+    const [ lastName, setLastName ] = useState<string | undefined>();
+    const [ companyName, setCompanyName ] = useState<string | undefined>();
+    const [ companyEmail, setCompanyEmail ] = useState<string | undefined>();
+    const [ password, setPassword ] = useState<string | undefined>();
+    const [ verifyPassword, setVerifyPassword ] = useState<string | undefined>();
+    const [ streetAddress, setStreetAddress ] = useState<string | undefined>();
+    const [ city, setCity ] = useState<string | undefined>();
+    const [ state, setState ] = useState<string | undefined>();
+    const [ zipcode, setZipcode ] = useState<string | undefined>();
+    const [ phoneNumber, setPhoneNumber ] = useState<string | undefined>();
 
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
+
+    const validate_email = (email?: string, verifiedEmail?: string) => {
+        return email === verifiedEmail;
+    }
 
     useEffect(() => {
         (async () => {
@@ -88,7 +92,7 @@ export const Register = () => {
                                             <TextField
                                                 label="First Name *"
                                                 value={firstName}
-                                                onChange={(e) => setFirstName(e.target.value)}
+                                                onChange={(e) => setFirstName(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -97,7 +101,7 @@ export const Register = () => {
                                             <TextField
                                                 label="Last Name *"
                                                 value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)}
+                                                onChange={(e) => setLastName(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -110,7 +114,7 @@ export const Register = () => {
                                             <TextField
                                                 label="Company Name *"
                                                 value={companyName}
-                                                onChange={(e) => setCompanyName(e.target.value)}
+                                                onChange={(e) => setCompanyName(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -128,7 +132,7 @@ export const Register = () => {
                                         value={companyEmail}
                                         type='email'
                                         autoComplete="off"
-                                        onChange={(e) => setCompanyEmail(e.target.value)}
+                                        onChange={(e) => setCompanyEmail(!!e.target.value ? e.target.value : undefined)}
                                     />
                                 </FormControl>
                             </Box>
@@ -141,7 +145,7 @@ export const Register = () => {
                                                 value={password}
                                                 type="password"
                                                 autoComplete="new-password"
-                                                onChange={(e) => setPassword(e.target.value)}
+                                                onChange={(e) => setPassword(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -152,7 +156,7 @@ export const Register = () => {
                                                 value={verifyPassword}
                                                 type="password"
                                                 autoComplete="new-password"
-                                                onChange={(e) => setVerifyPassword(e.target.value)}
+                                                onChange={(e) => setVerifyPassword(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -170,7 +174,7 @@ export const Register = () => {
                                     <TextField
                                         label="Street Address *"
                                         value={streetAddress}
-                                        onChange={(e) => setStreetAddress(e.target.value)}
+                                        onChange={(e) => setStreetAddress(!!e.target.value ? e.target.value : undefined)}
                                     />
                                 </FormControl>
                             </Box>
@@ -181,7 +185,7 @@ export const Register = () => {
                                             <TextField
                                                 label="City *"
                                                 value={city}
-                                                onChange={(e) => setCity(e.target.value)}
+                                                onChange={(e) => setCity(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -233,7 +237,7 @@ export const Register = () => {
                                             <TextField
                                                 label="Zipcode *"
                                                 value={zipcode}
-                                                onChange={(e) => setZipcode(e.target.value)}
+                                                onChange={(e) => setZipcode(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -242,7 +246,7 @@ export const Register = () => {
                                             <TextField
                                                 label="Phone Number *"
                                                 value={phoneNumber}
-                                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                                onChange={(e) => setPhoneNumber(!!e.target.value ? e.target.value : undefined)}
                                             />
                                         </FormControl>
                                     </Grid>
@@ -252,22 +256,27 @@ export const Register = () => {
                     </Box>
                     <Box display="flex" justifyContent='center'>
                         <Button onClick={async () => {
-                            const response = await postAdmin(
-                                firstName,
-                                lastName,
-                                companyName,
-                                companyEmail,
-                                password,
-                                streetAddress,
-                                city,
-                                state,
-                                zipcode,
-                                phoneNumber
-                            );
-                            if (response.detail) {
-                                setErrorMessage(response.detail);
+                            const isEmailVerified = validate_email(password, verifyPassword)
+                            if (!isEmailVerified) {
+                                setErrorMessage("Password and Verified Password must match!")
                             } else {
-                                navigate("/dashboard");
+                                const response = await postAdmin(
+                                    firstName,
+                                    lastName,
+                                    companyName,
+                                    companyEmail,
+                                    password,
+                                    streetAddress,
+                                    city,
+                                    state,
+                                    zipcode,
+                                    phoneNumber
+                                );
+                                if (response.errorMessage) {
+                                    setErrorMessage(response.errorMessage);
+                                } else {
+                                    navigate("/dashboard");
+                                }
                             }
                         }}>
                             Register for PoS-Systems
