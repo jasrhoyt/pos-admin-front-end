@@ -19,29 +19,37 @@ import backgroundImage from "../assets/pooches.jpg";
 import {useAdmin} from "../services/useAdmin";
 import {useLogin} from "../services/useLogin";
 import {useNavigate} from "react-router-dom";
+import {clearUser, getUser} from "../redux/slices/userSlices";
+import {useDispatch, useSelector} from "react-redux";
+import {IUserState, selectUser} from "../redux/selectors/userSelectors";
 
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
 
+    const [ user, setUser ] = useState<IUserState | undefined>()
+
+
     const { getStates } = useAdmin()
     const { postAdmin } = useLogin();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const [ firstName, setFirstName ] = useState<string | undefined>();
-    const [ lastName, setLastName ] = useState<string | undefined>();
-    const [ companyName, setCompanyName ] = useState<string | undefined>();
-    const [ companyEmail, setCompanyEmail ] = useState<string | undefined>();
-    const [ password, setPassword ] = useState<string | undefined>();
-    const [ verifyPassword, setVerifyPassword ] = useState<string | undefined>();
-    const [ streetAddress, setStreetAddress ] = useState<string | undefined>();
-    const [ city, setCity ] = useState<string | undefined>();
-    const [ state, setState ] = useState<string | undefined>();
-    const [ zipcode, setZipcode ] = useState<string | undefined>();
-    const [ phoneNumber, setPhoneNumber ] = useState<string | undefined>();
+    const [ firstName, setFirstName ] = useState<string | undefined>("");
+    const [ lastName, setLastName ] = useState<string | undefined>("");
+    const [ companyName, setCompanyName ] = useState<string | undefined>("");
+    const [ companyEmail, setCompanyEmail ] = useState<string | undefined>("");
+    const [ password, setPassword ] = useState<string | undefined>("");
+    const [ verifyPassword, setVerifyPassword ] = useState<string | undefined>("");
+    const [ streetAddress, setStreetAddress ] = useState<string | undefined>("");
+    const [ city, setCity ] = useState<string | undefined>("");
+    const [ state, setState ] = useState<string | undefined>("");
+    const [ zipcode, setZipcode ] = useState<string | undefined>("");
+    const [ phoneNumber, setPhoneNumber ] = useState<string | undefined>("");
 
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
+    const currentUser = useSelector(selectUser)
 
     const validate_password = (password?: string, verifiedPassword?: string) => {
         return password === verifiedPassword;
@@ -53,6 +61,25 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
             setStateOptions(states);
         })();
     }, []);
+
+    useEffect(() => {
+        if (!isUserSettings) {
+            dispatch(clearUser());
+        }
+        setUser(currentUser)
+        setFirstName(currentUser.firstName)
+        setLastName(currentUser.lastName)
+        setCompanyName(currentUser.companyName)
+        setCompanyEmail(currentUser.email)
+        setStreetAddress(currentUser.address.streetAddress)
+        setCity(currentUser.address.city)
+        const state = stateOptions.find(
+            (option) => option.state_name === currentUser.address.state
+        )?.state_name
+        setState(state)
+        setZipcode(currentUser.address.zipcode)
+
+    }, [stateOptions]);
 
     return (
         <ThemeProvider theme={RegisterTheme}>
@@ -200,31 +227,32 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                                 onClose={() => setIsStateDropdownOpen(false)}
                                                 displayEmpty={!isStateDropdownOpen}
                                                 label={isStateDropdownOpen ? "State" : undefined}
+                                                onChange={(e) => setState(e.target.value)}
                                                 renderValue={(selected) => {
                                                     if (!selected) {
-                                                        return <Typography
-                                                            sx={{
-                                                                color: 'inherit !important', // or any specific color you want
-                                                                display: 'flex',
-                                                                justifyContent: 'flex-start',
-                                                            }}
-                                                        >
-                                                            Select State *
-                                                        </Typography>;
+                                                        return (
+                                                            <Typography
+                                                                sx={{
+                                                                    color: 'inherit !important',
+                                                                    display: 'flex',
+                                                                    justifyContent: 'flex-start',
+                                                                }}
+                                                            >
+                                                                Select State *
+                                                            </Typography>
+                                                        );
                                                     }
                                                     return selected;
                                                 }}
                                             >
-                                                {stateOptions.map((state: any, index: number) => {
-                                                    return (
-                                                        <MenuItem
-                                                            key={`state-dropdown-item-${index}`}
-                                                            onClick={(e) => setState(state.state_name)}
-                                                        >
-                                                            {state.state_name}
-                                                        </MenuItem>
-                                                    )
-                                                })}
+                                                {stateOptions.map((state: any, index: number) => (
+                                                    <MenuItem
+                                                        key={`state-dropdown-item-${index}`}
+                                                        value={state.state_name}
+                                                    >
+                                                        {state.state_name}
+                                                    </MenuItem>
+                                                ))}
                                             </Select>
                                         </FormControl>
                                     </Grid>

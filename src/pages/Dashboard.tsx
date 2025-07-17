@@ -4,11 +4,11 @@ import {
     Box,
     Grid
 } from "@mui/material";
-import { getUser } from "../redux/slices/userSlices";
 import SettingsIcon from '@mui/icons-material/Settings';
 import { colors } from "../themes/colors";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUser } from "../redux/selectors/userSelectors";
+import {useNavigate} from "react-router-dom";
 
 
 export const Dashboard = () => {
@@ -24,8 +24,8 @@ export const Dashboard = () => {
 
 export const DashboardHeader = () => {
 
+    const navigate = useNavigate();
     const user = useSelector(selectUser);
-    console.log('user test value:', user);
     return (
         <Box
             sx={{
@@ -40,7 +40,7 @@ export const DashboardHeader = () => {
                     </Box>
                 </Grid>
                 <Grid size={1} display="flex" justifyContent="center" alignItems="center">
-                    <SettingsIcon />
+                    <SettingsIcon sx={{ cursor: "pointer" }} onClick={() => navigate("/settings")} />
                 </Grid>
             </Grid>
         </Box>

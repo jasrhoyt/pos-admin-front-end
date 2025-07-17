@@ -5,14 +5,17 @@ import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { setUser } from "../redux/slices/userSlices";
+import {selectUser} from "../redux/selectors/userSelectors";
 
 export const Login = () => {
 
     const { login } = useLogin();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const user = useSelector(selectUser);
 
     const [ email, setEmail ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");

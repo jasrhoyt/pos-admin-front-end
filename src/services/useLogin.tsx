@@ -55,10 +55,8 @@ export const useLogin = (): {
                     },
                     phone_number: phoneNumber
                 });
-                console.log("Success!! test value:")
                 return data
             } catch (e: any) {
-                console.log("Failure test value:", e.response.data)
                 return e.response.data
             }
         }
