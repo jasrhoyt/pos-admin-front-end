@@ -36,7 +36,7 @@ export const Login = () => {
 
             })
         );
-        // navigate("/dashboard")
+        navigate("/dashboard")
     }
 
     return (

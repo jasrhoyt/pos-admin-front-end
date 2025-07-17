@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
-    user_id: null,
+    userId: 0,
     firstName: '',
     lastName: '',
     companyName: '',
@@ -29,11 +29,13 @@ const userSlice = createSlice({
             };
         },
         clearUser: () => initialState,
+        getUser: (state) => state
     },
 });
 
 export const {
     setUser,
+    getUser,
     clearUser,
 } = userSlice.actions;
 

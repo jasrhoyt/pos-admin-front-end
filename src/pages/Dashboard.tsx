@@ -4,8 +4,11 @@ import {
     Box,
     Grid
 } from "@mui/material";
+import { getUser } from "../redux/slices/userSlices";
 import SettingsIcon from '@mui/icons-material/Settings';
-import {colors} from "../themes/colors";
+import { colors } from "../themes/colors";
+import {useDispatch, useSelector} from "react-redux";
+import { selectUser } from "../redux/selectors/userSelectors";
 
 
 export const Dashboard = () => {
@@ -21,6 +24,8 @@ export const Dashboard = () => {
 
 export const DashboardHeader = () => {
 
+    const user = useSelector(selectUser);
+    console.log('user test value:', user);
     return (
         <Box
             sx={{
