@@ -21,7 +21,7 @@ import {useLogin} from "../services/useLogin";
 import {useNavigate} from "react-router-dom";
 
 
-export const Register = () => {
+export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
 
     const { getStates } = useAdmin()
     const { postAdmin } = useLogin();
@@ -43,8 +43,8 @@ export const Register = () => {
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
 
-    const validate_email = (email?: string, verifiedEmail?: string) => {
-        return email === verifiedEmail;
+    const validate_password = (password?: string, verifiedPassword?: string) => {
+        return password === verifiedPassword;
     }
 
     useEffect(() => {
@@ -256,8 +256,8 @@ export const Register = () => {
                     </Box>
                     <Box display="flex" justifyContent='center'>
                         <Button onClick={async () => {
-                            const isEmailVerified = validate_email(password, verifyPassword)
-                            if (!isEmailVerified) {
+                            const isPasswordVerified = validate_password(password, verifyPassword)
+                            if (!isPasswordVerified) {
                                 setErrorMessage("Password and Verified Password must match!")
                             } else {
                                 const response = await postAdmin(

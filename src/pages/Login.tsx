@@ -5,16 +5,39 @@ import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from "../redux/slices/userSlices";
 
 export const Login = () => {
 
     const { login } = useLogin();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [ email, setEmail ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");
+    const [ errorMessage, setErrorMessage ] = useState<string>("");
 
-    const [ errorMessage, setErrorMessage ] = useState<string>();
+    const handleLogin = (userResponse: any) => {
+        const { user_id, first_name, last_name, company_name, email, address: { street_address, city, state, zipcode } } = userResponse;
+        dispatch(
+            setUser({
+                userId: user_id,
+                firstName: first_name,
+                lastName: last_name,
+                companyName: company_name,
+                email,
+                address: {
+                    streetAddress: street_address,
+                    city,
+                    state,
+                    zipcode,
+                }
+
+            })
+        );
+        // navigate("/dashboard")
+    }
 
     return (
         <ThemeProvider theme={LoginTheme}>
@@ -58,7 +81,7 @@ export const Login = () => {
                                 if (response.detail) {
                                     setErrorMessage(response.detail);
                                 } else {
-                                    navigate("/dashboard");
+                                    handleLogin(response);
                                 }
                             }}>
                                 Login
