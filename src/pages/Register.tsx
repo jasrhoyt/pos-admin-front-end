@@ -19,7 +19,7 @@ import backgroundImage from "../assets/pooches.jpg";
 import {useAdmin} from "../services/useAdmin";
 import {useLogin} from "../services/useLogin";
 import {useNavigate} from "react-router-dom";
-import {clearUser, getUser} from "../redux/slices/userSlices";
+import {clearUser, getUser, setUser as setCurrentUser} from "../redux/slices/userSlices";
 import {useDispatch, useSelector} from "react-redux";
 import {IUserState, selectUser} from "../redux/selectors/userSelectors";
 
@@ -304,6 +304,23 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                 if (response.errorMessage) {
                                     setErrorMessage(response.errorMessage);
                                 } else {
+                                    dispatch(
+                                        setCurrentUser({
+                                            userId: response.user_id,
+                                            firstName: response.first_name,
+                                            lastName: response.last_name,
+                                            companyName: response.company_name,
+                                            email: response.email,
+                                            phoneNumber: response.phone_number,
+                                            address: {
+                                                streetAddress: response.address.street_address,
+                                                city: response.address.city,
+                                                state: response.address.state,
+                                                zipcode: response.address.zipcode,
+                                            }
+
+                                        })
+                                    );
                                     navigate("/dashboard");
                                 }
                             }
