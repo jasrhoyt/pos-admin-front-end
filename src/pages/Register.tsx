@@ -71,6 +71,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
         setLastName(currentUser.lastName)
         setCompanyName(currentUser.companyName)
         setCompanyEmail(currentUser.email)
+        setPhoneNumber(currentUser.phoneNumber)
         setStreetAddress(currentUser.address.streetAddress)
         setCity(currentUser.address.city)
         const state = stateOptions.find(

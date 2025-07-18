@@ -7,6 +7,7 @@ const initialState = {
     lastName: '',
     companyName: '',
     email: '',
+    phoneNumber: '',
     address: {
         streetAddress: '',
         city: '',

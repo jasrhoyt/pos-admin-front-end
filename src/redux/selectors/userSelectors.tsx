@@ -6,6 +6,7 @@ export interface IUserState {
     lastName: string;
     companyName: string;
     email: string;
+    phoneNumber: string;
     address: {
         streetAddress: string;
         city: string;
