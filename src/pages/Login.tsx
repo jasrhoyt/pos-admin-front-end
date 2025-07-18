@@ -5,9 +5,8 @@ import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from "../redux/slices/userSlices";
-import {selectUser} from "../redux/selectors/userSelectors";
 
 export const Login = () => {
 
@@ -15,15 +14,12 @@ export const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const user = useSelector(selectUser);
-
     const [ email, setEmail ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");
     const [ errorMessage, setErrorMessage ] = useState<string>("");
 
     const handleLogin = (userResponse: any) => {
         const { user_id, first_name, last_name, company_name, email, phone_number, address: { street_address, city, state, zipcode } } = userResponse;
-        console.log('2 test value:', phone_number)
         dispatch(
             setUser({
                 userId: user_id,

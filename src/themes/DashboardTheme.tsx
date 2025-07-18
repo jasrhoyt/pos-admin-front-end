@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import {colors} from "./colors";
 
 export const DashboardTheme = createTheme({
     components: {
@@ -47,11 +48,19 @@ export const DashboardTheme = createTheme({
         MuiTypography: {
             defaultProps: {
                 sx: {
-                    color: 'red',
+                    color: colors.black,
                     display: 'flex',
                     justifyContent: 'center',
                 }
             }
-        }
+        },
+        MuiSelect: {
+            defaultProps: {
+                fullWidth: true,
+                sx: {
+                    backgroundColor: colors.secondaryColor,
+                }
+            },
+        },
     },
 });
