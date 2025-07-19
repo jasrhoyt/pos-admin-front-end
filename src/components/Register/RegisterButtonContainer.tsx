@@ -9,7 +9,7 @@ export const RegisterButtonContainer = (
     return (
         <>
             <Box display="flex" justifyContent='center'>
-                <Button onClick={() => onRegisterButtonClick}>
+                <Button onClick={() => onRegisterButtonClick()}>
                     {buttonCopy}
                 </Button>
             </Box>

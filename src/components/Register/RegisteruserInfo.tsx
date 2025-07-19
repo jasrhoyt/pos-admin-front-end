@@ -6,17 +6,17 @@ export const RegisterUserInfo = (
     { firstName, setFirstName, lastName, setLastName, companyName, setCompanyName, companyEmail, setCompanyEmail, password, setPassword, verifiedPassword, setVerifiedPassword }:
     {
         firstName?: string,
-        setFirstName: (inputString?: string) => void,
+        setFirstName: (inputString: string) => void,
         lastName?: string,
-        setLastName: (inputString?: string) => void;
+        setLastName: (inputString: string) => void;
         companyName?: string;
-        setCompanyName: (inputString?: string) => void;
+        setCompanyName: (inputString: string) => void;
         companyEmail?: string,
-        setCompanyEmail: (inputString?: string) => void;
+        setCompanyEmail: (inputString: string) => void;
         password?: string;
-        setPassword: (inputString?: string) => void;
+        setPassword: (inputString: string) => void;
         verifiedPassword?: string;
-        setVerifiedPassword: (inputString?: string) => void
+        setVerifiedPassword: (inputString: string) => void
     }
 ) => {
 
@@ -33,7 +33,7 @@ export const RegisterUserInfo = (
                                 <TextField
                                     label="First Name *"
                                     value={firstName}
-                                    onChange={(e) => setFirstName(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -42,7 +42,7 @@ export const RegisterUserInfo = (
                                 <TextField
                                     label="Last Name *"
                                     value={lastName}
-                                    onChange={(e) => setLastName(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -55,7 +55,7 @@ export const RegisterUserInfo = (
                                 <TextField
                                     label="Company Name *"
                                     value={companyName}
-                                    onChange={(e) => setCompanyName(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setCompanyName(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -73,7 +73,7 @@ export const RegisterUserInfo = (
                             value={companyEmail}
                             type='email'
                             autoComplete="off"
-                            onChange={(e) => setCompanyEmail(!!e.target.value ? e.target.value : undefined)}
+                            onChange={(e) => setCompanyEmail(e.target.value)}
                         />
                     </FormControl>
                 </Box>
@@ -86,7 +86,7 @@ export const RegisterUserInfo = (
                                     value={password}
                                     type="password"
                                     autoComplete="new-password"
-                                    onChange={(e) => setPassword(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -97,7 +97,7 @@ export const RegisterUserInfo = (
                                     value={verifiedPassword}
                                     type="password"
                                     autoComplete="new-password"
-                                    onChange={(e) => setVerifiedPassword(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setVerifiedPassword(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>

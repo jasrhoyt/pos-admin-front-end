@@ -6,15 +6,15 @@ export const RegisterCompanyInfo = (
     { streetAddress, setStreetAddress, city, setCity, state, setState, zipcode, setZipcode, phoneNumber, setPhoneNumber, stateOptions }:
     {
         streetAddress?: string,
-        setStreetAddress: (inputString?: string) => void,
+        setStreetAddress: (inputString: string) => void,
         city?: string,
-        setCity: (inputString?: string) => void;
+        setCity: (inputString: string) => void;
         state?: string;
-        setState: (inputString?: string) => void;
+        setState: (inputString: string) => void;
         zipcode?: string,
-        setZipcode: (inputString?: string) => void;
+        setZipcode: (inputString: string) => void;
         phoneNumber?: string;
-        setPhoneNumber: (inputString?: string) => void;
+        setPhoneNumber: (inputString: string) => void;
         stateOptions: any[]
     }
 ) => {
@@ -32,7 +32,7 @@ export const RegisterCompanyInfo = (
                         <TextField
                             label="Street Address *"
                             value={streetAddress}
-                            onChange={(e) => setStreetAddress(!!e.target.value ? e.target.value : undefined)}
+                            onChange={(e) => setStreetAddress(e.target.value)}
                         />
                     </FormControl>
                 </Box>
@@ -43,7 +43,7 @@ export const RegisterCompanyInfo = (
                                 <TextField
                                     label="City *"
                                     value={city}
-                                    onChange={(e) => setCity(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setCity(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -96,7 +96,7 @@ export const RegisterCompanyInfo = (
                                 <TextField
                                     label="Zipcode *"
                                     value={zipcode}
-                                    onChange={(e) => setZipcode(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setZipcode(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>
@@ -105,7 +105,7 @@ export const RegisterCompanyInfo = (
                                 <TextField
                                     label="Phone Number *"
                                     value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(!!e.target.value ? e.target.value : undefined)}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
                                 />
                             </FormControl>
                         </Grid>

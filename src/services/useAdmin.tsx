@@ -8,14 +8,22 @@ export const useAdmin = (): {
 } => {
     const { endpoint } = useConfig();
 
-    const getStates = useCallback(async () => {
+    const getStates = async () => {
         try {
             const { data } = await axios.get(`${endpoint}states`);
             return data.states;
         } catch (e: any) {
             return e.response.data;
         }
-    }, [endpoint]);
+    }
+    const getRestaurants = async () => {
+        try {
+            const { data } = await axios.get(`${endpoint}states`);
+            return data.states;
+        } catch (e: any) {
+            return e.response.data;
+        }
+    }
 
     return { getStates };
 };

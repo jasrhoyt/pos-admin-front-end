@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/selectors/userSelectors";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import { AddLocationAlt } from "@mui/icons-material";
 
 
 export const Dashboard = () => {
@@ -80,6 +81,7 @@ export const DashboardHeader = () => {
                             ))}
                         </Select>
                     </FormControl>
+                    <AddLocationAlt sx={{ paddingLeft: "1rem", fontSize: "3rem" }}/>
                 </Grid>
                 <Grid size={8} display="flex" justifyContent="center" alignItems="center">
                     <Box>

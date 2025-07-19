@@ -1,18 +1,4 @@
-import {
-    Stack,
-    Box,
-    Grid,
-    Button,
-    FormControl,
-    TextField,
-    ThemeProvider,
-    Typography,
-    Select,
-    InputLabel,
-    MenuItem,
-    Tooltip
-} from "@mui/material";
-import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+import {Stack, Box, ThemeProvider, } from "@mui/material";
 import {useEffect, useState} from "react";
 import {RegisterTheme} from "../themes/RegisterTheme";
 import backgroundImage from "../assets/pooches.jpg";
@@ -34,17 +20,17 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [ firstName, setFirstName ] = useState<string | undefined>("");
-    const [ lastName, setLastName ] = useState<string | undefined>("");
-    const [ companyName, setCompanyName ] = useState<string | undefined>("");
-    const [ companyEmail, setCompanyEmail ] = useState<string | undefined>("");
-    const [ password, setPassword ] = useState<string | undefined>("");
-    const [ verifyPassword, setVerifyPassword ] = useState<string | undefined>("");
-    const [ streetAddress, setStreetAddress ] = useState<string | undefined>("");
-    const [ city, setCity ] = useState<string | undefined>("");
-    const [ state, setState ] = useState<string | undefined>("");
-    const [ zipcode, setZipcode ] = useState<string | undefined>("");
-    const [ phoneNumber, setPhoneNumber ] = useState<string | undefined>("");
+    const [ firstName, setFirstName ] = useState<string>("");
+    const [ lastName, setLastName ] = useState<string>("");
+    const [ companyName, setCompanyName ] = useState<string>("");
+    const [ companyEmail, setCompanyEmail ] = useState<string>("");
+    const [ password, setPassword ] = useState<string>("");
+    const [ verifyPassword, setVerifyPassword ] = useState<string>("");
+    const [ streetAddress, setStreetAddress ] = useState<string>("");
+    const [ city, setCity ] = useState<string>("");
+    const [ state, setState ] = useState<string>("");
+    const [ zipcode, setZipcode ] = useState<string>("");
+    const [ phoneNumber, setPhoneNumber ] = useState<string>("");
 
     const currentUser = useSelector(selectUser)
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
@@ -57,6 +43,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
     const buttonCopy = isUserSettings ? "Update User Info" : "Register for PoS-Systems"
 
     const onRegister = async () => {
+        console.log("test value:",)
         const isPasswordVerified = validate_password(password, verifyPassword);
         if (!isPasswordVerified) {
             setErrorMessage("Password and Verified Password must match!");
@@ -174,7 +161,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                         setPhoneNumber={setPhoneNumber}
                         stateOptions={stateOptions}
                     />
-                    <RegisterButtonContainer onRegisterButtonClick={onRegister} errorMessage={errorMessage} buttonCopy={buttonCopy} />
+                    <RegisterButtonContainer onRegisterButtonClick={() => onRegister()} errorMessage={errorMessage} buttonCopy={buttonCopy} />
                 </Stack>
             </Box>
         </ThemeProvider>

@@ -4,20 +4,20 @@ import {useConfig} from "./useConfig";
 export const useLogin = (): {
     login: (email: string, password: string) => Promise<any>,
     postAdmin: (
-        firstName: string | undefined,
-        lastName: string | undefined,
-        companyName: string | undefined,
-        email: string | undefined,
-        password: string | undefined,
-        streetAddress: string | undefined,
-        city: string | undefined,
-        state: string | undefined,
-        zipcode: string | undefined,
-        phoneNumber: string | undefined
+        firstName: string,
+        lastName: string,
+        companyName: string,
+        email: string,
+        password: string,
+        streetAddress: string,
+        city: string,
+        state: string,
+        zipcode: string,
+        phoneNumber: string
     ) => Promise<any>
 } => {
 
-    const { endpoint, axiosConfig } = useConfig()
+    const { endpoint } = useConfig()
 
     return {
         login: async (email: string, password: string) => {
@@ -29,16 +29,16 @@ export const useLogin = (): {
             }
         },
         postAdmin: async (
-            firstName: string | undefined,
-            lastName: string | undefined,
-            companyName: string | undefined,
-            email: string | undefined,
-            password: string | undefined,
-            streetAddress: string | undefined,
-            city: string | undefined,
-            state: string | undefined,
-            zipcode: string | undefined,
-            phoneNumber: string | undefined
+            firstName: string,
+            lastName: string,
+            companyName: string,
+            email: string,
+            password: string,
+            streetAddress: string,
+            city: string,
+            state: string,
+            zipcode: string,
+            phoneNumber: string
         ) => {
             try {
                 const { data } = await axios.post(`${endpoint}admin`, {
