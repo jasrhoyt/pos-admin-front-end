@@ -91,7 +91,7 @@ export const DashboardHeader = () => {
                             Welcome to PoS-Systems {user.firstName}!
                         </Typography>
                         <Typography variant="h4">
-                            Restaurant Name Placeholder
+                            {user.companyName}
                         </Typography>
                     </Box>
                 </Grid>

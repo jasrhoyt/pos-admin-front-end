@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {clearUser, setUser as setCurrentUser} from "../redux/slices/userSlices";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUser} from "../redux/selectors/userSelectors";
-import {RegisterUserInfo} from "../components/Register/RegisteruserInfo";
+import {RegisterUserInfo} from "../components/Register/RegisterUserInfo";
 import {RegisterCompanyInfo} from "../components/Register/RegisterCompanyInfo";
 import {RegisterButtonContainer} from "../components/Register/RegisterButtonContainer";
 import {colors} from "../themes/colors";

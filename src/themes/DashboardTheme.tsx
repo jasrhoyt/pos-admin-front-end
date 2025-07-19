@@ -65,7 +65,7 @@ export const DashboardTheme = createTheme({
         MuiModal: {
             defaultProps: {
                 sx: {
-                    margin: "10rem 20rem",
+                    margin: "20vh 30vw",
                     backgroundColor: colors.secondaryColor,
                     borderRadius: "1rem",
                 }

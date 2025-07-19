@@ -1,8 +1,18 @@
-import {Modal, Stack, Box, Typography, Grid, FormControl, TextField, Tooltip, ThemeProvider} from "@mui/material";
+import {
+    Modal,
+    Stack,
+    Box,
+    Typography,
+    Grid,
+    FormControl,
+    TextField,
+    ThemeProvider,
+    Checkbox, InputLabel, Select, MenuItem
+} from "@mui/material";
 import {colors} from "../themes/colors";
-import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {ModalTheme} from "../themes/ModalTheme";
+import {useAdmin} from "../services/useAdmin";
 
 
 export const AddRestaurantModal = () => {
@@ -14,6 +24,17 @@ export const AddRestaurantModal = () => {
     const [ city, setCity ] = useState<string>("");
     const [ state, setState ] = useState<string>("");
     const [ zipcode, setZipcode ] = useState<string>("");
+
+    const { getStates } = useAdmin()
+    const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
+    const [ stateOptions, setStateOptions ] = useState<any[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            const states = await getStates();
+            setStateOptions(states);
+        })();
+    }, []);
 
     return (
             <Modal open={true}>
@@ -31,50 +52,36 @@ export const AddRestaurantModal = () => {
                                 outline: 'none'
                             }
                         }}
-                        spacing={4}
+                        spacing={2}
                     >
                         <Typography variant="h5">
-                            User Info
+                            Restaurant Information
                         </Typography>
                         <Box>
-                            <Grid container spacing={2}>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Phone Number *"
-                                            value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Restaurant Email *"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
+                            <FormControl fullWidth>
+                                <Checkbox
+                                    checked={true}
+                                />
+                            </FormControl>
                         </Box>
                         <Box>
-                            <Grid container spacing={2} alignItems="center">
-                                <Grid size={11}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Restaurant Name *"
-                                            value={restaurantName}
-                                            onChange={(e) => setRestaurantName(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid size={1}>
-                                    <Tooltip arrow title={<Typography>Address of the restaurant or parent company</Typography>}>
-                                        <InfoOutlineIcon sx={{ fontSize: 28, cursor: 'pointer' }} />
-                                    </Tooltip>
-                                </Grid>
-                            </Grid>
+                            <FormControl fullWidth>
+                                <TextField
+                                    label="Restaurant Name *"
+                                    value={restaurantName}
+                                    onChange={(e) => setRestaurantName(e.target.value)}
+                                />
+                            </FormControl>
+                        </Box>
+                        <Box>
+                            <FormControl fullWidth>
+                                <TextField
+                                    label="Restaurant Email *"
+                                    value={email}
+                                    type='email'
+                                    onChange={(e) => setStreetAddress(e.target.value)}
+                                />
+                            </FormControl>
                         </Box>
                         <Box>
                             <FormControl fullWidth>
@@ -82,7 +89,6 @@ export const AddRestaurantModal = () => {
                                     label="Street Address *"
                                     value={streetAddress}
                                     type='email'
-                                    autoComplete="off"
                                     onChange={(e) => setStreetAddress(e.target.value)}
                                 />
                             </FormControl>
@@ -100,10 +106,74 @@ export const AddRestaurantModal = () => {
                                 </Grid>
                                 <Grid size={6}>
                                     <FormControl fullWidth>
-                                        <TextField
-                                            label="State *"
-                                            value={state}
+                                        {isStateDropdownOpen && <InputLabel id="state-label">Select State</InputLabel>}
+
+                                        <Select
+                                            labelId="state-label"
+                                            value={state || ''}
+                                            onOpen={() => setIsStateDropdownOpen(true)}
+                                            onClose={() => setIsStateDropdownOpen(false)}
+                                            displayEmpty={!isStateDropdownOpen}
+
+                                            label={isStateDropdownOpen ? "Select State" : undefined}
                                             onChange={(e) => setState(e.target.value)}
+                                            renderValue={(selected) => {
+                                                if (!selected) {
+                                                    return (
+                                                        <Typography
+                                                            sx={{
+                                                                color: 'inherit !important',
+                                                                display: 'flex',
+                                                                justifyContent: 'flex-start',
+                                                            }}
+                                                        >
+                                                            Select State *
+                                                        </Typography>
+                                                    );
+                                                }
+                                                return selected;
+                                            }}
+                                            MenuProps={{
+                                                anchorOrigin: {
+                                                    vertical: 'bottom',
+                                                    horizontal: 'left', // where the menu is anchored from
+                                                },
+                                                transformOrigin: {
+                                                    vertical: 'top',
+                                                    horizontal: 'right', // where the menu grows towards
+                                                },
+                                            }}
+                                        >
+                                            {stateOptions.map((state: any, index: number) => (
+                                                <MenuItem
+                                                    key={`state-dropdown-item-${index}`}
+                                                    value={state.state_name}
+                                                >
+                                                    {state.state_name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <Box>
+                            <Grid container spacing={2}>
+                                <Grid size={6}>
+                                    <FormControl fullWidth>
+                                        <TextField
+                                            label="Zipcode *"
+                                            value={zipcode}
+                                            onChange={(e) => setZipcode(e.target.value)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid size={6}>
+                                    <FormControl fullWidth>
+                                        <TextField
+                                            label="Phone Number *"
+                                            value={phoneNumber}
+                                            onChange={(e) => setPhoneNumber(e.target.value)}
                                         />
                                     </FormControl>
                                 </Grid>

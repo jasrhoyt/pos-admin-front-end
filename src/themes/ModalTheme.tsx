@@ -7,7 +7,7 @@ export const ModalTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: 'lightblue',
+                    backgroundColor: colors.primaryColor,
                     borderRadius: '8px'
                 }
             },
@@ -16,7 +16,9 @@ export const ModalTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: 'lightblue',
+                    backgroundColor: colors.primaryColor,
+                    color: colors.black,
+                    fontWeight: 'bold',
                 }
             },
         },
@@ -38,7 +40,7 @@ export const ModalTheme = createTheme({
             defaultProps: {
                 sx: {
                     color: colors.black,
-                    backgroundColor: "lightblue",
+                    backgroundColor: colors.primaryColor,
                     border: "1px solid rgba(0, 0, 0, 0.23)",
                     borderRadius: "8px",
                     textTransform: "none",
