@@ -13,6 +13,8 @@ import {colors} from "../themes/colors";
 import {useEffect, useState} from "react";
 import {ModalTheme} from "../themes/ModalTheme";
 import {useAdmin} from "../services/useAdmin";
+import {selectUser} from "../redux/selectors/userSelectors";
+import {useSelector} from "react-redux";
 
 
 export const AddRestaurantModal = () => {
@@ -26,8 +28,11 @@ export const AddRestaurantModal = () => {
     const [ zipcode, setZipcode ] = useState<string>("");
 
     const { getStates } = useAdmin()
+    const currentUser = useSelector(selectUser)
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
+    const [ useParentCompanyName, setUseParentCompanyName ] = useState<boolean>(false);
+    const [ useParentCompanyAddress, setUseParentCompanyAddress ] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -54,15 +59,28 @@ export const AddRestaurantModal = () => {
                         }}
                         spacing={2}
                     >
-                        <Typography variant="h5">
-                            Restaurant Information
-                        </Typography>
-                        <Box>
-                            <FormControl fullWidth>
+                        <Box sx={{ display: "flex", justifyContent: "center"}}>
+                            <Typography variant="h5">
+                                Restaurant Information
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <FormControl>
                                 <Checkbox
-                                    checked={true}
+                                    checked={useParentCompanyName}
+                                    onClick={() => {
+                                        if (!useParentCompanyName) {
+                                            setRestaurantName(currentUser.companyName)
+                                            setEmail(currentUser.email)
+                                        } else {
+                                            setRestaurantName("");
+                                            setEmail("")
+                                        }
+                                        setUseParentCompanyName(!useParentCompanyName)
+                                    }}
                                 />
                             </FormControl>
+                            <Typography>Use Same Information as Parent Company</Typography>
                         </Box>
                         <Box>
                             <FormControl fullWidth>
@@ -82,6 +100,35 @@ export const AddRestaurantModal = () => {
                                     onChange={(e) => setStreetAddress(e.target.value)}
                                 />
                             </FormControl>
+                        </Box>
+                        <Box sx={{ display: "flex", justifyContent: "center"}}>
+                            <Typography variant="h5">
+                                Contact Information
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <FormControl>
+                                <Checkbox
+                                    checked={useParentCompanyAddress}
+                                    onClick={() => {
+                                        if (!useParentCompanyAddress) {
+                                            setStreetAddress(currentUser.address.streetAddress);
+                                            setCity(currentUser.address.city);
+                                            setState(currentUser.address.state);
+                                            setZipcode(currentUser.address.zipcode);
+                                            setPhoneNumber(currentUser.phoneNumber);
+                                        } else {
+                                            setStreetAddress("");
+                                            setCity("");
+                                            setState("");
+                                            setZipcode("");
+                                            setPhoneNumber("");
+                                        }
+                                        setUseParentCompanyAddress(!useParentCompanyAddress);
+                                    }}
+                                />
+                            </FormControl>
+                            <Typography>Use Same Contact Information as Parent Company</Typography>
                         </Box>
                         <Box>
                             <FormControl fullWidth>

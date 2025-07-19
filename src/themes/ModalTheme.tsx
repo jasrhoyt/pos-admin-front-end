@@ -18,7 +18,6 @@ export const ModalTheme = createTheme({
                 sx: {
                     backgroundColor: colors.primaryColor,
                     color: colors.black,
-                    fontWeight: 'bold',
                 }
             },
         },
@@ -54,8 +53,6 @@ export const ModalTheme = createTheme({
             defaultProps: {
                 sx: {
                     color: colors.black,
-                    display: 'flex',
-                    justifyContent: 'center',
                 }
             }
         },
