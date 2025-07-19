@@ -11,6 +11,7 @@ import { selectUser } from "../redux/selectors/userSelectors";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import { AddLocationAlt } from "@mui/icons-material";
+import {AddRestaurantModal} from "../components/AddRestaurantModal";
 
 
 export const Dashboard = () => {
@@ -18,6 +19,7 @@ export const Dashboard = () => {
 
     return (
         <ThemeProvider theme={DashboardTheme}>
+            <AddRestaurantModal />
             <DashboardHeader />
             <DashboardBody />
         </ThemeProvider>

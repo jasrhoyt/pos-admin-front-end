@@ -3,10 +3,17 @@ import axios from "axios";
 
 export const useRestaurant = (): {
     getRestaurants: (adminId?: number) => Promise<[]>;
-    postRestaurants: (restaurantName: string, useAddressOnFile: string, address: {} ) => Promise<{}>;
+    postRestaurants: (restaurantName: string, useAddressOnFile: boolean, address: {
+        street_address: string;
+        city: string;
+        state: string;
+        zipcode: string
+    }) => Promise<any>
 } => {
     const { endpoint } = useConfig();
-    const getRestaurants = async ( adminId?: number ) => {
+    const getRestaurants = async (
+        adminId?: number
+    ) => {
         try {
             const { data } = await axios.get(`${endpoint}restaurants`, { params: { admin_id: adminId } });
             return data.states;

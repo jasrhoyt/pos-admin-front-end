@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import {colors} from "./colors";
 
 export const LoginTheme = createTheme({
     components: {
@@ -17,7 +18,7 @@ export const LoginTheme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: 'black',
+                    color: colors.black,
                 },
             },
         },
@@ -25,10 +26,10 @@ export const LoginTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    color: "black",
+                    color: colors.black,
                     backgroundColor: "lightblue",
                     '&:hover': {
-                        color: "white",
+                        color: colors.white,
                         backgroundColor: "darkblue",
                     },
                 },
@@ -37,7 +38,7 @@ export const LoginTheme = createTheme({
         MuiLink: {
             defaultProps: {
                 sx: {
-                    color: 'black',
+                    color: colors.black,
                     cursor: 'pointer',
                     textDecoration: 'underline',
                     textDecorationColor: 'currentColor',

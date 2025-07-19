@@ -1,11 +1,23 @@
 import { createTheme } from '@mui/material/styles';
 import {colors} from "./colors";
 
-export const DashboardTheme = createTheme({
+export const ModalTheme = createTheme({
     components: {
         MuiTextField: {
             defaultProps: {
                 fullWidth: true,
+                sx: {
+                    backgroundColor: 'lightblue',
+                    borderRadius: '8px'
+                }
+            },
+        },
+        MuiSelect: {
+            defaultProps: {
+                fullWidth: true,
+                sx: {
+                    backgroundColor: 'lightblue',
+                }
             },
         },
         MuiOutlinedInput: {
@@ -24,26 +36,17 @@ export const DashboardTheme = createTheme({
         },
         MuiButton: {
             defaultProps: {
-                fullWidth: true,
                 sx: {
-                    color: "black",
+                    color: colors.black,
                     backgroundColor: "lightblue",
+                    border: "1px solid rgba(0, 0, 0, 0.23)",
+                    borderRadius: "8px",
+                    textTransform: "none",
                     '&:hover': {
-                        color: colors.white,
-                        backgroundColor: "darkblue",
+                        backgroundColor: colors.secondaryColor,
                     },
                 },
             },
-        },
-        MuiLink: {
-            defaultProps: {
-                sx: {
-                    color: colors.black,
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    textDecorationColor: 'currentColor',
-                },
-            }
         },
         MuiTypography: {
             defaultProps: {
@@ -54,22 +57,18 @@ export const DashboardTheme = createTheme({
                 }
             }
         },
-        MuiSelect: {
-            defaultProps: {
-                fullWidth: true,
-                sx: {
-                    backgroundColor: colors.secondaryColor,
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    backgroundColor: colors.primaryColor,
+                    color: colors.white,
+                    borderRadius: '8px',
+                    textAlign: "center"
+                },
+                arrow: {
+                    color: colors.primaryColor,
                 }
             },
-        },
-        MuiModal: {
-            defaultProps: {
-                sx: {
-                    margin: "10rem 20rem",
-                    backgroundColor: colors.secondaryColor,
-                    borderRadius: "1rem",
-                }
-            },
-        },
+        }
     },
 });

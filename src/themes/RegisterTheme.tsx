@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import {colors} from "./colors";
 
 export const RegisterTheme = createTheme({
     components: {
@@ -6,7 +7,7 @@ export const RegisterTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: 'lightblue',
+                    backgroundColor: colors.primaryColor,
                     borderRadius: '8px'
                 }
             },
@@ -15,7 +16,7 @@ export const RegisterTheme = createTheme({
             defaultProps: {
                 fullWidth: true,
                 sx: {
-                    backgroundColor: 'lightblue',
+                    backgroundColor: colors.primaryColor,
                 }
             },
         },
@@ -29,20 +30,20 @@ export const RegisterTheme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: 'black',
+                    color: colors.black,
                 },
             },
         },
         MuiButton: {
             defaultProps: {
                 sx: {
-                    color: "black",
-                    backgroundColor: "lightblue",
+                    color: colors.black,
+                    backgroundColor: colors.primaryColor,
                     border: "1px solid rgba(0, 0, 0, 0.23)",
                     borderRadius: "8px",
                     textTransform: "none",
                     '&:hover': {
-                        backgroundColor: "#fcf5c7",
+                        backgroundColor: colors.secondaryColor,
                     },
                 },
             },
@@ -50,7 +51,7 @@ export const RegisterTheme = createTheme({
         MuiLink: {
             defaultProps: {
                 sx: {
-                    color: 'black',
+                    color: colors.black,
                     cursor: 'pointer',
                     textDecoration: 'underline',
                     textDecorationColor: 'currentColor',
@@ -60,7 +61,7 @@ export const RegisterTheme = createTheme({
         MuiTypography: {
             defaultProps: {
                 sx: {
-                    color: 'black',
+                    color: colors.black,
                     display: 'flex',
                     justifyContent: 'center',
                 }
@@ -69,13 +70,13 @@ export const RegisterTheme = createTheme({
         MuiTooltip: {
             styleOverrides: {
                 tooltip: {
-                    backgroundColor: '#fcf5c7',
-                    color: 'white',
+                    backgroundColor: colors.secondaryColor,
+                    color: colors.white,
                     borderRadius: '8px',
                     textAlign: "center"
                 },
                 arrow: {
-                    color: '#ffcc6e',
+                    color: colors.secondaryColor,
                 }
             },
         }

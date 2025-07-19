@@ -11,6 +11,7 @@ import {selectUser} from "../redux/selectors/userSelectors";
 import {RegisterUserInfo} from "../components/Register/RegisteruserInfo";
 import {RegisterCompanyInfo} from "../components/Register/RegisterCompanyInfo";
 import {RegisterButtonContainer} from "../components/Register/RegisterButtonContainer";
+import {colors} from "../themes/colors";
 
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
@@ -130,7 +131,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                 <Stack
                     spacing={4}
                     sx={{
-                        backgroundColor: "white",
+                        backgroundColor: colors.white,
                         width: { sm: "70%", lg: "40%", xl: "25%" },
                         padding: "2rem",
                         borderRadius: "8px",

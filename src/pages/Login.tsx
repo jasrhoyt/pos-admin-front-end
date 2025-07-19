@@ -7,6 +7,7 @@ import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from "../redux/slices/userSlices";
+import {colors} from "../themes/colors";
 
 export const Login = () => {
 
@@ -60,7 +61,7 @@ export const Login = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Stack spacing={2} sx={{ backgroundColor: "white", width: { sm: "70%", lg: "40%", xl: '25%'}, padding: "2rem", borderRadius: "8px" }}>
+                    <Stack spacing={2} sx={{ backgroundColor: colors.white, width: { sm: "70%", lg: "40%", xl: '25%'}, padding: "2rem", borderRadius: "8px" }}>
                         <FormControl fullWidth>
                             <TextField
                                 onChange={(e) => setEmail(e.target.value)}
