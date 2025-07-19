@@ -7,17 +7,18 @@ import {
     FormControl,
     TextField,
     ThemeProvider,
-    Checkbox, InputLabel, Select, MenuItem
+    Checkbox, InputLabel, Select, MenuItem, Button
 } from "@mui/material";
-import {colors} from "../themes/colors";
+import {colors} from "../../themes/colors";
 import {useEffect, useState} from "react";
-import {ModalTheme} from "../themes/ModalTheme";
-import {useAdmin} from "../services/useAdmin";
-import {selectUser} from "../redux/selectors/userSelectors";
+import {ModalTheme} from "../../themes/ModalTheme";
+import {useAdmin} from "../../services/useAdmin";
+import {selectUser} from "../../redux/selectors/userSelectors";
 import {useSelector} from "react-redux";
+import {useRestaurant} from "../../services/useRestaurant";
 
 
-export const AddRestaurantModal = () => {
+export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClose: () => void }) => {
 
     const [ restaurantName, setRestaurantName ] = useState<string>("");
     const [ email, setEmail ] = useState<string>("");
@@ -28,11 +29,13 @@ export const AddRestaurantModal = () => {
     const [ zipcode, setZipcode ] = useState<string>("");
 
     const { getStates } = useAdmin()
+    const { postRestaurants } = useRestaurant()
     const currentUser = useSelector(selectUser)
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ useParentCompanyName, setUseParentCompanyName ] = useState<boolean>(false);
     const [ useParentCompanyAddress, setUseParentCompanyAddress ] = useState<boolean>(false);
+    const [ errorMessage, setErrorMessage ] = useState<string>("");
 
     useEffect(() => {
         (async () => {
@@ -41,9 +44,25 @@ export const AddRestaurantModal = () => {
         })();
     }, []);
 
-    return (
-            <Modal open={true}>
+    const onAddRestaurantButtonClick = async () => {
+        let address = null
+        if (!useParentCompanyAddress) {
+            address = {
+                street_address: streetAddress,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+            }
+        }
+        const response = await postRestaurants(
+            restaurantName,
+            useParentCompanyAddress,
+            address
+        );
+    }
 
+    return (
+            <Modal open={isOpen} onClose={onClose}>
                 <ThemeProvider theme={ModalTheme}>
                     <Stack
                         sx={{
@@ -226,6 +245,12 @@ export const AddRestaurantModal = () => {
                                 </Grid>
                             </Grid>
                         </Box>
+                        <Box display="flex" justifyContent='center'>
+                            <Button onClick={() => onAddRestaurantButtonClick()}>
+                                Add New Restaurant
+                            </Button>
+                        </Box>
+                        <Typography sx={{color: "red", display: "flex", justifyContent: "center"}}>{errorMessage}</Typography>
                     </Stack>
                 </ThemeProvider>
             </Modal>

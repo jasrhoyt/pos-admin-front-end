@@ -11,22 +11,26 @@ import { selectUser } from "../redux/selectors/userSelectors";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import { AddLocationAlt } from "@mui/icons-material";
-import {AddRestaurantModal} from "../components/AddRestaurantModal";
+import {AddRestaurantModal} from "../components/Modals/AddRestaurantModal";
 
 
 export const Dashboard = () => {
 
+    const [ isAddRestaurantModalOpen, setAddRestaurantModalOpen ] = useState(false);
 
     return (
         <ThemeProvider theme={DashboardTheme}>
-            <AddRestaurantModal />
-            <DashboardHeader />
+            <AddRestaurantModal isOpen={isAddRestaurantModalOpen} onClose={() => setAddRestaurantModalOpen(false)} />
+            <DashboardHeader onAddNewRestaurant={() => {
+                console.log("test value:")
+                setAddRestaurantModalOpen(true)
+            }} />
             <DashboardBody />
         </ThemeProvider>
     )
 }
 
-export const DashboardHeader = () => {
+export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () => void }) => {
 
     const navigate = useNavigate();
     const user = useSelector(selectUser);
@@ -83,7 +87,7 @@ export const DashboardHeader = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <AddLocationAlt sx={{ paddingLeft: "1rem", fontSize: "3rem" }}/>
+                    <AddLocationAlt sx={{ paddingLeft: "1rem", fontSize: "3rem" }} onClick={() => onAddNewRestaurant()}/>
                 </Grid>
                 <Grid size={8} display="flex" justifyContent="center" alignItems="center">
                     <Box>

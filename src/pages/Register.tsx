@@ -12,6 +12,7 @@ import {RegisterUserInfo} from "../components/Register/RegisterUserInfo";
 import {RegisterCompanyInfo} from "../components/Register/RegisterCompanyInfo";
 import {RegisterButtonContainer} from "../components/Register/RegisterButtonContainer";
 import {colors} from "../themes/colors";
+import {validate_password} from "../services/utilities";
 
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
@@ -37,14 +38,9 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
 
-    const validate_password = (password?: string, verifiedPassword?: string) => {
-        return password === verifiedPassword;
-    }
-
     const buttonCopy = isUserSettings ? "Update User Info" : "Register for PoS-Systems"
 
     const onRegister = async () => {
-        console.log("test value:",)
         const isPasswordVerified = validate_password(password, verifyPassword);
         if (!isPasswordVerified) {
             setErrorMessage("Password and Verified Password must match!");
