@@ -1,9 +1,9 @@
 import {useConfig} from "./useConfig";
 import axios from "axios";
+import {toNullIfEmpty} from "./utilities";
 
 
 export const useAdmin = (): {
-    getStates: () => Promise<any[]>
     postAdmin: (
         firstName: string,
         lastName: string,
@@ -19,14 +19,6 @@ export const useAdmin = (): {
 } => {
     const { endpoint } = useConfig();
 
-    const getStates = async () => {
-        try {
-            const { data } = await axios.get(`${endpoint}states`);
-            return data.states;
-        } catch (e: any) {
-            return e.response.data;
-        }
-    }
     const postAdmin = async (
         firstName: string,
         lastName: string,
@@ -41,18 +33,18 @@ export const useAdmin = (): {
     ) => {
         try {
             const { data } = await axios.post(`${endpoint}admin`, {
-                first_name: firstName,
-                last_name: lastName,
-                company_name: companyName,
-                email,
-                password,
+                first_name: toNullIfEmpty(firstName),
+                last_name: toNullIfEmpty(lastName),
+                company_name: toNullIfEmpty(companyName),
+                email: toNullIfEmpty(email),
+                password: toNullIfEmpty(password),
                 address: {
-                    street_address: streetAddress,
-                    city,
-                    state,
-                    zipcode
+                    street_address: toNullIfEmpty(streetAddress),
+                    city: toNullIfEmpty(city),
+                    state: toNullIfEmpty(state),
+                    zipcode: toNullIfEmpty(zipcode),
                 },
-                phone_number: phoneNumber
+                phone_number: toNullIfEmpty(phoneNumber)
             });
             return data
         } catch (e: any) {
@@ -60,5 +52,5 @@ export const useAdmin = (): {
         }
     }
 
-    return { getStates, postAdmin };
+    return {postAdmin };
 };

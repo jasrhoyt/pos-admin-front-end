@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {RegisterTheme} from "../themes/RegisterTheme";
 import backgroundImage from "../assets/pooches.jpg";
 import {useAdmin} from "../services/useAdmin";
-import {useLogin} from "../services/useLogin";
 import {useNavigate} from "react-router-dom";
 import {clearUser, setUser as setCurrentUser} from "../redux/slices/userSlices";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,13 +11,14 @@ import {RegisterUserInfo} from "../components/Register/RegisterUserInfo";
 import {RegisterCompanyInfo} from "../components/Register/RegisterCompanyInfo";
 import {RegisterButtonContainer} from "../components/Register/RegisterButtonContainer";
 import {colors} from "../themes/colors";
-import {validate_password} from "../services/utilities";
+import {toNullIfEmpty, validate_password} from "../services/utilities";
+import {useRefData} from "../services/useRefDataServices";
 
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
 
-    const { getStates } = useAdmin()
-    const { postAdmin } = useLogin();
+    const { getStates } = useRefData()
+    const { postAdmin } = useAdmin();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -102,7 +102,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
         const state = stateOptions.find(
             (option) => option.state_name === currentUser.address.state
         )?.state_name
-        setState(state)
+        setState(state || "")
         setZipcode(currentUser.address.zipcode)
 
     }, [stateOptions]);

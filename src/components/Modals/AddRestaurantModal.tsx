@@ -16,6 +16,8 @@ import {useAdmin} from "../../services/useAdmin";
 import {selectUser} from "../../redux/selectors/userSelectors";
 import {useSelector} from "react-redux";
 import {useRestaurant} from "../../services/useRestaurant";
+import {useRefData} from "../../services/useRefDataServices";
+import {toNullIfEmpty} from "../../services/utilities";
 
 
 export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClose: () => void }) => {
@@ -28,7 +30,7 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
     const [ state, setState ] = useState<string>("");
     const [ zipcode, setZipcode ] = useState<string>("");
 
-    const { getStates } = useAdmin()
+    const { getStates } = useRefData()
     const { postRestaurants } = useRestaurant()
     const currentUser = useSelector(selectUser)
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
@@ -48,17 +50,22 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
         let address = null
         if (!useParentCompanyAddress) {
             address = {
-                street_address: streetAddress,
+                streetAddress: streetAddress,
                 city: city,
                 state: state,
                 zipcode: zipcode,
             }
         }
         const response = await postRestaurants(
+            currentUser.userId,
             restaurantName,
+            email,
             useParentCompanyAddress,
             address
         );
+        if (response.errorMessage) {
+            setErrorMessage(response.errorMessage);
+        }
     }
 
     return (
@@ -116,7 +123,7 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
                                     label="Restaurant Email *"
                                     value={email}
                                     type='email'
-                                    onChange={(e) => setStreetAddress(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </FormControl>
                         </Box>

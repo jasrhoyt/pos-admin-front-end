@@ -1,13 +1,16 @@
 import {useConfig} from "./useConfig";
 import axios from "axios";
+import {toNullIfEmpty} from "./utilities";
 
 export const useRestaurant = (): {
     getRestaurants: (adminId?: number) => Promise<[]>;
     postRestaurants: (
+        adminId: number,
         restaurantName: string,
+        restaurantEmail: string,
         useAddressOnFile: boolean,
         address: {
-            street_address: string;
+            streetAddress: string;
             city: string;
             state: string;
             zipcode: string
@@ -26,10 +29,12 @@ export const useRestaurant = (): {
         }
     }
     const postRestaurants = async (
+        adminId: number,
         restaurantName: string,
+        restaurantEmail: string,
         useAddressOnFile: boolean = false,
         address: {
-            street_address: string,
+            streetAddress: string,
             city: string,
             state: string,
             zipcode: string,
@@ -37,9 +42,18 @@ export const useRestaurant = (): {
     ) => {
         try {
             const { data } = await axios.post(`${endpoint}restaurants`, {
-                restaurant_name: restaurantName,
+                admin_id: adminId,
+                restaurant_name: toNullIfEmpty(restaurantName),
+                restaurant_email: toNullIfEmpty(restaurantEmail),
                 use_address_on_file: useAddressOnFile,
-                address
+                address: address
+                    ? {
+                        street_address: toNullIfEmpty(address.streetAddress),
+                        city: toNullIfEmpty(address.city),
+                        state: toNullIfEmpty(address.state),
+                        zipcode: toNullIfEmpty(address.zipcode),
+                    }
+                    : null,
             });
             return data.states;
         } catch (e: any) {
