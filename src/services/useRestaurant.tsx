@@ -8,6 +8,7 @@ export const useRestaurant = (): {
         adminId: number,
         restaurantName: string,
         restaurantEmail: string,
+        phoneNumber: string,
         useAddressOnFile: boolean,
         address: {
             streetAddress: string;
@@ -32,6 +33,7 @@ export const useRestaurant = (): {
         adminId: number,
         restaurantName: string,
         restaurantEmail: string,
+        phoneNumber: string,
         useAddressOnFile: boolean = false,
         address: {
             streetAddress: string,
@@ -45,6 +47,7 @@ export const useRestaurant = (): {
                 admin_id: adminId,
                 restaurant_name: toNullIfEmpty(restaurantName),
                 restaurant_email: toNullIfEmpty(restaurantEmail),
+                phone_number: toNullIfEmpty(phoneNumber),
                 use_address_on_file: useAddressOnFile,
                 address: address
                     ? {
@@ -55,7 +58,7 @@ export const useRestaurant = (): {
                     }
                     : null,
             });
-            return data.states;
+            return data;
         } catch (e: any) {
             return e.response.data;
         }

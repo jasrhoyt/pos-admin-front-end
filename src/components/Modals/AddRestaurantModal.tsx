@@ -60,11 +60,14 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
             currentUser.userId,
             restaurantName,
             email,
+            phoneNumber,
             useParentCompanyAddress,
             address
         );
         if (response.errorMessage) {
             setErrorMessage(response.errorMessage);
+        } else {
+            onClose();
         }
     }
 

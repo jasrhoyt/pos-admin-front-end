@@ -20,9 +20,10 @@ export const Dashboard = () => {
 
     return (
         <ThemeProvider theme={DashboardTheme}>
-            <AddRestaurantModal isOpen={isAddRestaurantModalOpen} onClose={() => setAddRestaurantModalOpen(false)} />
+            <AddRestaurantModal isOpen={isAddRestaurantModalOpen} onClose={() => {
+                setAddRestaurantModalOpen(false)
+            }} />
             <DashboardHeader onAddNewRestaurant={() => {
-                console.log("test value:")
                 setAddRestaurantModalOpen(true)
             }} />
             <DashboardBody />

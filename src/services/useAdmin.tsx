@@ -52,5 +52,5 @@ export const useAdmin = (): {
         }
     }
 
-    return {postAdmin };
+    return { postAdmin };
 };

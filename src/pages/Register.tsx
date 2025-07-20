@@ -11,7 +11,7 @@ import {RegisterUserInfo} from "../components/Register/RegisterUserInfo";
 import {RegisterCompanyInfo} from "../components/Register/RegisterCompanyInfo";
 import {RegisterButtonContainer} from "../components/Register/RegisterButtonContainer";
 import {colors} from "../themes/colors";
-import {toNullIfEmpty, validate_password} from "../services/utilities";
+import {validate_password} from "../services/utilities";
 import {useRefData} from "../services/useRefDataServices";
 
 
