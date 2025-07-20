@@ -27,7 +27,7 @@ export const LoginTheme = createTheme({
                 fullWidth: true,
                 sx: {
                     color: colors.black,
-                    backgroundColor: "lightblue",
+                    backgroundColor: colors.primaryColor,
                     '&:hover': {
                         color: colors.white,
                         backgroundColor: "darkblue",

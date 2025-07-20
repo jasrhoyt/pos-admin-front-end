@@ -39,7 +39,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
     const [ isRestaurantDropdownOpen, setIsRestaurantDropdownOpen ] = useState(false);
     const [ restaurant, setRestaurant ] = useState<string | undefined>("")
 
-    const restaurants: any = []
+    const restaurants: any = [{restaurant_name: "test"}]
 
     return (
         <Box
@@ -51,22 +51,21 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
             <Grid spacing={1} container>
                 <Grid size={2} display="flex" justifyContent="center" alignItems="center">
                     <FormControl fullWidth>
-                        {isRestaurantDropdownOpen && <InputLabel id="state-label">Select Restaurant</InputLabel>}
+                        {isRestaurantDropdownOpen && <InputLabel id="restaurant-label">Select Restaurant</InputLabel>}
 
                         <Select
-                            labelId="state-label"
+                            labelId="restaurant-label"
                             value={restaurant || ''}
                             onOpen={() => setIsRestaurantDropdownOpen(true)}
                             onClose={() => setIsRestaurantDropdownOpen(false)}
                             displayEmpty={!isRestaurantDropdownOpen}
-                            label={isRestaurantDropdownOpen ? "Restaurants" : undefined}
+                            label={isRestaurantDropdownOpen ? "Select Restaurant" : undefined}
                             onChange={(e) => setRestaurant(e.target.value)}
                             renderValue={(selected) => {
                                 if (!selected) {
                                     return (
                                         <Typography
                                             sx={{
-                                                color: 'inherit !important',
                                                 display: 'flex',
                                                 justifyContent: 'flex-start',
                                             }}
@@ -80,7 +79,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                         >
                             {restaurants.map((restaurant: any, index: number) => (
                                 <MenuItem
-                                    key={`state-dropdown-item-${index}`}
+                                    key={`restaurant-dropdown-item-${index}`}
                                     value={restaurant.resaurant_name}
                                 >
                                     {restaurant.restaurant_name}

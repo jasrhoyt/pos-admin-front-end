@@ -17,7 +17,6 @@ import {selectUser} from "../../redux/selectors/userSelectors";
 import {useSelector} from "react-redux";
 import {useRestaurant} from "../../services/useRestaurant";
 import {useRefData} from "../../services/useRefDataServices";
-import {toNullIfEmpty} from "../../services/utilities";
 
 
 export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClose: () => void }) => {
@@ -72,197 +71,187 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
     }
 
     return (
+        <ThemeProvider theme={ModalTheme}>
             <Modal open={isOpen} onClose={onClose}>
-                <ThemeProvider theme={ModalTheme}>
-                    <Stack
-                        sx={{
-                            backgroundColor: colors.secondaryColor,
-                            padding: "2rem",
-                            borderRadius: "1rem",
-                            boxShadow: 16,
-                            width: "100%",
-                            outline: 'none',
-                            '&:focus': {
-                                outline: 'none'
-                            }
-                        }}
-                        spacing={2}
-                    >
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Typography variant="h5">
-                                Restaurant Information
-                            </Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <FormControl>
-                                <Checkbox
-                                    checked={useParentCompanyName}
-                                    onClick={() => {
-                                        if (!useParentCompanyName) {
-                                            setRestaurantName(currentUser.companyName)
-                                            setEmail(currentUser.email)
-                                        } else {
-                                            setRestaurantName("");
-                                            setEmail("")
-                                        }
-                                        setUseParentCompanyName(!useParentCompanyName)
-                                    }}
-                                />
-                            </FormControl>
-                            <Typography>Use Same Information as Parent Company</Typography>
-                        </Box>
-                        <Box>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Restaurant Name *"
-                                    value={restaurantName}
-                                    onChange={(e) => setRestaurantName(e.target.value)}
-                                />
-                            </FormControl>
-                        </Box>
-                        <Box>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Restaurant Email *"
-                                    value={email}
-                                    type='email'
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </FormControl>
-                        </Box>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Typography variant="h5">
-                                Contact Information
-                            </Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <FormControl>
-                                <Checkbox
-                                    checked={useParentCompanyAddress}
-                                    onClick={() => {
-                                        if (!useParentCompanyAddress) {
-                                            setStreetAddress(currentUser.address.streetAddress);
-                                            setCity(currentUser.address.city);
-                                            setState(currentUser.address.state);
-                                            setZipcode(currentUser.address.zipcode);
-                                            setPhoneNumber(currentUser.phoneNumber);
-                                        } else {
-                                            setStreetAddress("");
-                                            setCity("");
-                                            setState("");
-                                            setZipcode("");
-                                            setPhoneNumber("");
-                                        }
-                                        setUseParentCompanyAddress(!useParentCompanyAddress);
-                                    }}
-                                />
-                            </FormControl>
-                            <Typography>Use Same Contact Information as Parent Company</Typography>
-                        </Box>
-                        <Box>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Street Address *"
-                                    value={streetAddress}
-                                    type='email'
-                                    onChange={(e) => setStreetAddress(e.target.value)}
-                                />
-                            </FormControl>
-                        </Box>
-                        <Box>
-                            <Grid container spacing={2}>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="City *"
-                                            value={city}
-                                            onChange={(e) => setCity(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        {isStateDropdownOpen && <InputLabel id="state-label">Select State</InputLabel>}
-
-                                        <Select
-                                            labelId="state-label"
-                                            value={state || ''}
-                                            onOpen={() => setIsStateDropdownOpen(true)}
-                                            onClose={() => setIsStateDropdownOpen(false)}
-                                            displayEmpty={!isStateDropdownOpen}
-
-                                            label={isStateDropdownOpen ? "Select State" : undefined}
-                                            onChange={(e) => setState(e.target.value)}
-                                            renderValue={(selected) => {
-                                                if (!selected) {
-                                                    return (
-                                                        <Typography
-                                                            sx={{
-                                                                color: 'inherit !important',
-                                                                display: 'flex',
-                                                                justifyContent: 'flex-start',
-                                                            }}
-                                                        >
-                                                            Select State *
-                                                        </Typography>
-                                                    );
-                                                }
-                                                return selected;
-                                            }}
-                                            MenuProps={{
-                                                anchorOrigin: {
-                                                    vertical: 'bottom',
-                                                    horizontal: 'left', // where the menu is anchored from
-                                                },
-                                                transformOrigin: {
-                                                    vertical: 'top',
-                                                    horizontal: 'right', // where the menu grows towards
-                                                },
-                                            }}
-                                        >
-                                            {stateOptions.map((state: any, index: number) => (
-                                                <MenuItem
-                                                    key={`state-dropdown-item-${index}`}
-                                                    value={state.state_name}
-                                                >
-                                                    {state.state_name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
+                <Stack
+                    sx={{
+                        backgroundColor: colors.secondaryColor,
+                        padding: "2rem",
+                        borderRadius: "1rem",
+                        boxShadow: 16,
+                        width: "100%",
+                        outline: 'none',
+                        '&:focus': {
+                            outline: 'none'
+                        }
+                    }}
+                    spacing={2}
+                >
+                    <Box sx={{ display: "flex", justifyContent: "center"}}>
+                        <Typography variant="h5">
+                            Restaurant Information
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <FormControl>
+                            <Checkbox
+                                checked={useParentCompanyName}
+                                onClick={() => {
+                                    if (!useParentCompanyName) {
+                                        setRestaurantName(currentUser.companyName)
+                                        setEmail(currentUser.email)
+                                    } else {
+                                        setRestaurantName("");
+                                        setEmail("")
+                                    }
+                                    setUseParentCompanyName(!useParentCompanyName)
+                                }}
+                            />
+                        </FormControl>
+                        <Typography>Use Same Information as Parent Company</Typography>
+                    </Box>
+                    <Box>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Restaurant Name *"
+                                value={restaurantName}
+                                onChange={(e) => setRestaurantName(e.target.value)}
+                            />
+                        </FormControl>
+                    </Box>
+                    <Box>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Restaurant Email *"
+                                value={email}
+                                type='email'
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "center"}}>
+                        <Typography variant="h5">
+                            Contact Information
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <FormControl>
+                            <Checkbox
+                                checked={useParentCompanyAddress}
+                                onClick={() => {
+                                    if (!useParentCompanyAddress) {
+                                        setStreetAddress(currentUser.address.streetAddress);
+                                        setCity(currentUser.address.city);
+                                        setState(currentUser.address.state);
+                                        setZipcode(currentUser.address.zipcode);
+                                        setPhoneNumber(currentUser.phoneNumber);
+                                    } else {
+                                        setStreetAddress("");
+                                        setCity("");
+                                        setState("");
+                                        setZipcode("");
+                                        setPhoneNumber("");
+                                    }
+                                    setUseParentCompanyAddress(!useParentCompanyAddress);
+                                }}
+                            />
+                        </FormControl>
+                        <Typography>Use Same Contact Information as Parent Company</Typography>
+                    </Box>
+                    <Box>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Street Address *"
+                                value={streetAddress}
+                                type='email'
+                                onChange={(e) => setStreetAddress(e.target.value)}
+                            />
+                        </FormControl>
+                    </Box>
+                    <Box>
+                        <Grid container spacing={2}>
+                            <Grid size={6}>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="City *"
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                    />
+                                </FormControl>
                             </Grid>
-                        </Box>
-                        <Box>
-                            <Grid container spacing={2}>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Zipcode *"
-                                            value={zipcode}
-                                            onChange={(e) => setZipcode(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid size={6}>
-                                    <FormControl fullWidth>
-                                        <TextField
-                                            label="Phone Number *"
-                                            value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                        />
-                                    </FormControl>
-                                </Grid>
+                            <Grid size={6}>
+                                <FormControl fullWidth>
+                                    {isStateDropdownOpen && <InputLabel id="state-label">Select State</InputLabel>}
+
+                                    <Select
+                                        labelId="state-label"
+                                        value={state || ''}
+                                        onOpen={() => setIsStateDropdownOpen(true)}
+                                        onClose={() => setIsStateDropdownOpen(false)}
+                                        displayEmpty={!isStateDropdownOpen}
+
+                                        label={isStateDropdownOpen ? "Select State" : undefined}
+                                        onChange={(e) => setState(e.target.value)}
+                                        renderValue={(selected) => {
+                                            if (!selected) {
+                                                return (
+                                                    <Typography
+                                                        sx={{
+                                                            color: 'inherit !important',
+                                                            display: 'flex',
+                                                            justifyContent: 'flex-start',
+                                                        }}
+                                                    >
+                                                        Select State *
+                                                    </Typography>
+                                                );
+                                            }
+                                            return selected;
+                                        }}
+                                    >
+                                        {stateOptions.map((state: any, index: number) => (
+                                            <MenuItem
+                                                key={`state-dropdown-item-${index}`}
+                                                value={state.state_name}
+                                            >
+                                                {state.state_name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
                             </Grid>
-                        </Box>
-                        <Box display="flex" justifyContent='center'>
-                            <Button onClick={() => onAddRestaurantButtonClick()}>
-                                Add New Restaurant
-                            </Button>
-                        </Box>
-                        <Typography sx={{color: "red", display: "flex", justifyContent: "center"}}>{errorMessage}</Typography>
-                    </Stack>
-                </ThemeProvider>
+                        </Grid>
+                    </Box>
+                    <Box>
+                        <Grid container spacing={2}>
+                            <Grid size={6}>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="Zipcode *"
+                                        value={zipcode}
+                                        onChange={(e) => setZipcode(e.target.value)}
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid size={6}>
+                                <FormControl fullWidth>
+                                    <TextField
+                                        label="Phone Number *"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                    <Box display="flex" justifyContent='center'>
+                        <Button onClick={() => onAddRestaurantButtonClick()}>
+                            Add New Restaurant
+                        </Button>
+                    </Box>
+                    <Typography sx={{color: "red", display: "flex", justifyContent: "center"}}>{errorMessage}</Typography>
+                </Stack>
             </Modal>
+        </ThemeProvider>
     )
 }

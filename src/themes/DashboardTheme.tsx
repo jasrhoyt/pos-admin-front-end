@@ -27,7 +27,7 @@ export const DashboardTheme = createTheme({
                 fullWidth: true,
                 sx: {
                     color: "black",
-                    backgroundColor: "lightblue",
+                    backgroundColor: colors.primaryColor,
                     '&:hover': {
                         color: colors.white,
                         backgroundColor: "darkblue",
@@ -59,15 +59,6 @@ export const DashboardTheme = createTheme({
                 fullWidth: true,
                 sx: {
                     backgroundColor: colors.secondaryColor,
-                }
-            },
-        },
-        MuiModal: {
-            defaultProps: {
-                sx: {
-                    margin: "20vh 30vw",
-                    backgroundColor: colors.secondaryColor,
-                    borderRadius: "1rem",
                 }
             },
         },

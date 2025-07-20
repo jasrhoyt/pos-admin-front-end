@@ -68,6 +68,13 @@ export const ModalTheme = createTheme({
                     color: colors.primaryColor,
                 }
             },
-        }
+        },
+        MuiModal: {
+            defaultProps: {
+                sx: {
+                    margin: "20vh 30vw"
+                }
+            },
+        },
     },
 });
