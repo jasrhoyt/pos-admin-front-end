@@ -9,7 +9,6 @@ export const useRefData = (): {
     const getStates = async () => {
         try {
             const { data } = await axios.get(`${endpoint}states`);
-            console.log('test value:', data)
             return data.states;
         } catch (e: any) {
             return e.response.data;

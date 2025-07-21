@@ -79,9 +79,9 @@ export const RegisterCompanyInfo = (
                                     {stateOptions.map((state: any, index: number) => (
                                         <MenuItem
                                             key={`state-dropdown-item-${index}`}
-                                            value={state.state_name}
+                                            value={state.stateName}
                                         >
-                                            {state.state_name}
+                                            {state.stateName}
                                         </MenuItem>
                                     ))}
                                 </Select>

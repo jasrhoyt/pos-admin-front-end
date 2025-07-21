@@ -100,8 +100,8 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
         setStreetAddress(currentUser.address.streetAddress)
         setCity(currentUser.address.city)
         const state = stateOptions.find(
-            (option) => option.state_name === currentUser.address.state
-        )?.state_name
+            (option) => option.stateName === currentUser.address.state
+        )?.stateName
         setState(state || "")
         setZipcode(currentUser.address.zipcode)
 
