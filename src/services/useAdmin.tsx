@@ -33,18 +33,18 @@ export const useAdmin = (): {
     ) => {
         try {
             const { data } = await axios.post(`${endpoint}admin`, {
-                first_name: toNullIfEmpty(firstName),
-                last_name: toNullIfEmpty(lastName),
-                company_name: toNullIfEmpty(companyName),
+                firstName: toNullIfEmpty(firstName),
+                lastName: toNullIfEmpty(lastName),
+                companyName: toNullIfEmpty(companyName),
                 email: toNullIfEmpty(email),
                 password: toNullIfEmpty(password),
                 address: {
-                    street_address: toNullIfEmpty(streetAddress),
+                    streetAddress: toNullIfEmpty(streetAddress),
                     city: toNullIfEmpty(city),
                     state: toNullIfEmpty(state),
                     zipcode: toNullIfEmpty(zipcode),
                 },
-                phone_number: toNullIfEmpty(phoneNumber)
+                phoneNumber: toNullIfEmpty(phoneNumber)
             });
             return data
         } catch (e: any) {

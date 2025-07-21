@@ -62,14 +62,14 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
             } else {
                 dispatch(
                     setCurrentUser({
-                        userId: response.user_id,
-                        firstName: response.first_name,
-                        lastName: response.last_name,
-                        companyName: response.company_name,
+                        userId: response.userId,
+                        firstName: response.firstName,
+                        lastName: response.lastName,
+                        companyName: response.companyName,
                         email: response.email,
-                        phoneNumber: response.phone_number,
+                        phoneNumber: response.phoneNumber,
                         address: {
-                            streetAddress: response.address.street_address,
+                            streetAddress: response.address.streetAddress,
                             city: response.address.city,
                             state: response.address.state,
                             zipcode: response.address.zipcode,
