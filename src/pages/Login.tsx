@@ -20,17 +20,17 @@ export const Login = () => {
     const [ errorMessage, setErrorMessage ] = useState<string>("");
 
     const handleLogin = (userResponse: any) => {
-        const { user_id, first_name, last_name, company_name, email, phone_number, address: { street_address, city, state, zipcode } } = userResponse;
+        const { userId, firstName, lastName, companyName, email, phoneNumber, address: { streetAddress, city, state, zipcode } } = userResponse;
         dispatch(
             setUser({
-                userId: user_id,
-                firstName: first_name,
-                lastName: last_name,
-                companyName: company_name,
+                userId,
+                firstName,
+                lastName,
+                companyName,
                 email,
-                phoneNumber: phone_number,
+                phoneNumber,
                 address: {
-                    streetAddress: street_address,
+                    streetAddress,
                     city,
                     state,
                     zipcode,
