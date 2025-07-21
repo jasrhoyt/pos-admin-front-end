@@ -50,7 +50,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
             const restaurants = await getRestaurants(user.userId);
             setRestaurantOptions(restaurants);
         })();
-    }, []);
+    }, [onAddNewRestaurant]);
 
     useEffect(() => {
         if (currentRestaurant.restaurantName) {

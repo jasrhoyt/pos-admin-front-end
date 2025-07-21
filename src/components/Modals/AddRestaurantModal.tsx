@@ -72,7 +72,7 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
 
     return (
         <ThemeProvider theme={ModalTheme}>
-            <Modal open={isOpen} onClose={onClose}>
+            <Modal open={isOpen} onClose={onClose} sx={{ margin: "20vh 30vw" }}>
                 <Stack
                     sx={{
                         backgroundColor: colors.secondaryColor,
@@ -212,9 +212,9 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
                                         {stateOptions.map((state: any, index: number) => (
                                             <MenuItem
                                                 key={`state-dropdown-item-${index}`}
-                                                value={state.state_name}
+                                                value={state.stateName}
                                             >
-                                                {state.state_name}
+                                                {state.stateName}
                                             </MenuItem>
                                         ))}
                                     </Select>

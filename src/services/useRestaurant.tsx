@@ -45,14 +45,14 @@ export const useRestaurant = (): {
     ) => {
         try {
             const { data } = await axios.post(`${endpoint}restaurants`, {
-                admin_id: adminId,
-                restaurant_name: toNullIfEmpty(restaurantName),
-                restaurant_email: toNullIfEmpty(restaurantEmail),
-                phone_number: toNullIfEmpty(phoneNumber),
-                use_address_on_file: useAddressOnFile,
+                adminId,
+                restaurantName: toNullIfEmpty(restaurantName),
+                restaurantEmail: toNullIfEmpty(restaurantEmail),
+                phoneNumber: toNullIfEmpty(phoneNumber),
+                useAddressOnFile,
                 address: address
                     ? {
-                        street_address: toNullIfEmpty(address.streetAddress),
+                        streetAddress: toNullIfEmpty(address.streetAddress),
                         city: toNullIfEmpty(address.city),
                         state: toNullIfEmpty(address.state),
                         zipcode: toNullIfEmpty(address.zipcode),

@@ -69,12 +69,13 @@ export const ModalTheme = createTheme({
                 }
             },
         },
-        MuiModal: {
-            defaultProps: {
-                sx: {
-                    margin: "20vh 30vw"
-                }
-            },
-        },
+        // MuiModal: {
+        //     defaultProps: {
+        //         sx: {
+        //             margin: "20vh 30vw"
+        //         }
+        //     },
+        // },  This appears to be a bug. Trying to set a base modal theme with these margins, but it has an undesired
+        // effect on Select element's dropdown locations.
     },
 });
