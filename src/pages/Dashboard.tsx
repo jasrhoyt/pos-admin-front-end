@@ -8,10 +8,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { colors } from "../themes/colors";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/selectors/userSelectors";
+import { selectRestaurant } from "../redux/selectors/restaurantSelector";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { AddLocationAlt } from "@mui/icons-material";
 import {AddRestaurantModal} from "../components/Modals/AddRestaurantModal";
+import {useRestaurant} from "../services/useRestaurant";
 
 
 export const Dashboard = () => {
@@ -35,11 +37,28 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
 
     const navigate = useNavigate();
     const user = useSelector(selectUser);
+    const currentRestaurant = useSelector(selectRestaurant);
+    const { getRestaurants } = useRestaurant();
 
     const [ isRestaurantDropdownOpen, setIsRestaurantDropdownOpen ] = useState(false);
-    const [ restaurant, setRestaurant ] = useState<string | undefined>("")
+    const [ restaurant, setRestaurant ] = useState<string>("")
 
-    const restaurants: any = [{restaurant_name: "test"}]
+    const [ restaurantOptions, setRestaurantOptions] = useState<any[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            const restaurants = await getRestaurants(user.userId);
+            setRestaurantOptions(restaurants);
+        })();
+    }, []);
+
+    useEffect(() => {
+        if (currentRestaurant.restaurantName) {
+            setRestaurant(currentRestaurant.restaurantName)
+        } else if (!currentRestaurant.restaurantName && restaurantOptions.length > 0) {
+            setRestaurant(restaurantOptions[0]?.restaurantName);
+        }
+    }, [restaurantOptions, currentRestaurant]);
 
     return (
         <Box
@@ -56,11 +75,18 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                         <Select
                             labelId="restaurant-label"
                             value={restaurant || ''}
-                            onOpen={() => setIsRestaurantDropdownOpen(true)}
+                            onOpen={() => {
+                                if (restaurantOptions.length > 1) {
+                                    setIsRestaurantDropdownOpen(true)
+                                }
+                            }}
+                            disabled={restaurantOptions.length < 2}
                             onClose={() => setIsRestaurantDropdownOpen(false)}
                             displayEmpty={!isRestaurantDropdownOpen}
                             label={isRestaurantDropdownOpen ? "Select Restaurant" : undefined}
-                            onChange={(e) => setRestaurant(e.target.value)}
+                            onChange={(e) => {
+                                setRestaurant(e.target.value)
+                            }}
                             renderValue={(selected) => {
                                 if (!selected) {
                                     return (
@@ -77,17 +103,17 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                                 return selected;
                             }}
                         >
-                            {restaurants.map((restaurant: any, index: number) => (
+                            {restaurantOptions.map((restaurant: any, index: number) => (
                                 <MenuItem
                                     key={`restaurant-dropdown-item-${index}`}
-                                    value={restaurant.resaurant_name}
+                                    value={restaurant.restaurantName}
                                 >
-                                    {restaurant.restaurant_name}
+                                    {restaurant.restaurantName}
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <AddLocationAlt sx={{ paddingLeft: "1rem", fontSize: "3rem" }} onClick={() => onAddNewRestaurant()}/>
+                    <AddLocationAlt sx={{ paddingLeft: "1rem", cursor: "pointer", fontSize: "3rem" }} onClick={() => onAddNewRestaurant()}/>
                 </Grid>
                 <Grid size={8} display="flex" justifyContent="center" alignItems="center">
                     <Box>
@@ -95,12 +121,12 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                             Welcome to PoS-Systems {user.firstName}!
                         </Typography>
                         <Typography variant="h4">
-                            {user.companyName}
+                            {restaurant || user.companyName}
                         </Typography>
                     </Box>
                 </Grid>
                 <Grid size={2} display="flex" justifyContent="center" alignItems="center">
-                    <SettingsIcon sx={{ cursor: "pointer" }} onClick={() => navigate("/settings")} />
+                    <SettingsIcon sx={{ cursor: "pointer", fontSize: "3rem" }} onClick={() => navigate("/settings")} />
                 </Grid>
             </Grid>
         </Box>

@@ -15,7 +15,9 @@ export interface IUserState {
     }
 }
 
-export const selectUser = (state: any): IUserState => state.user;
+export const selectUser = (state: any): IUserState => {
+    return state.user
+};
 
 export const selectUserFullName = (state: any) =>
     `${state.user.firstName} ${state.user.lastName}`;

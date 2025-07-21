@@ -1,9 +1,10 @@
 import {useConfig} from "./useConfig";
 import axios from "axios";
 import {toNullIfEmpty} from "./utilities";
+import {IRestaurantState} from "../redux/selectors/restaurantSelector";
 
 export const useRestaurant = (): {
-    getRestaurants: (adminId?: number) => Promise<[]>;
+    getRestaurants: (adminId?: number) => Promise<IRestaurantState[]>;
     postRestaurants: (
         adminId: number,
         restaurantName: string,
@@ -24,7 +25,7 @@ export const useRestaurant = (): {
     ) => {
         try {
             const { data } = await axios.get(`${endpoint}restaurants`, { params: { admin_id: adminId } });
-            return data.states;
+            return data.restaurants;
         } catch (e: any) {
             return e.response.data;
         }
