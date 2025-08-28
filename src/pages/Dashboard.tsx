@@ -22,13 +22,19 @@ export const Dashboard = () => {
 
     return (
         <ThemeProvider theme={DashboardTheme}>
-            <AddRestaurantModal isOpen={isAddRestaurantModalOpen} onClose={() => {
-                setAddRestaurantModalOpen(false)
-            }} />
-            <DashboardHeader onAddNewRestaurant={() => {
-                setAddRestaurantModalOpen(true)
-            }} />
-            <DashboardBody />
+            <Box sx={{
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column"
+            }}>
+                <AddRestaurantModal isOpen={isAddRestaurantModalOpen} onClose={() => {
+                    setAddRestaurantModalOpen(false)
+                }} />
+                <DashboardHeader onAddNewRestaurant={() => {
+                    setAddRestaurantModalOpen(true)
+                }} />
+                <DashboardBody />
+            </Box>
         </ThemeProvider>
     )
 }
@@ -65,6 +71,8 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
             sx={{
                 padding: "2rem",
                 backgroundColor: colors.primaryColor,
+                minHeight: "120px", // Set your desired minimum height
+                flexShrink: 0, // Prevent the header from shrinking
             }}
         >
             <Grid spacing={1} container>
@@ -120,7 +128,14 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                         <Typography variant="h2">
                             Welcome to PoS-Systems {user.firstName}!
                         </Typography>
-                        <Typography variant="h4">
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                wordWrap: 'break-word',
+                                overflowWrap: 'break-word',
+                                hyphens: 'auto'
+                            }}
+                        >
                             {restaurant || user.companyName}
                         </Typography>
                     </Box>
@@ -138,9 +153,10 @@ export const DashboardBody = () => {
     return (
         <Box
             sx={{
-                height: "100vh",
                 padding: "2rem",
-                backgroundColor: colors.secondaryColor
+                backgroundColor: colors.secondaryColor,
+                flex: 1,
+                overflow: "auto"
             }}
         >
         </Box>
