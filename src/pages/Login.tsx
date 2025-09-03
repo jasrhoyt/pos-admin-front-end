@@ -5,10 +5,9 @@ import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from "../redux/slices/userSlices";
-import {colors} from "../themes/colors";
-import {selectUser} from "../redux/selectors/userSelectors";
+import { colors } from "../themes/colors";
 
 export const Login = () => {
 
