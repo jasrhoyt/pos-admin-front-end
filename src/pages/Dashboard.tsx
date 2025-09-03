@@ -42,13 +42,11 @@ export const Dashboard = () => {
 
 export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () => void }) => {
 
-    const navigate = useNavigate();
     const user = useSelector(selectUser);
     const currentRestaurant = useSelector(selectRestaurant);
     const { getRestaurants } = useRestaurant();
 
     const [ isRestaurantDropdownOpen, setIsRestaurantDropdownOpen ] = useState(false);
-    const [ isUserSettingsDropdownOpen, setIsUserSettingsDropdownOpen ] = useState(false);
 
     const [ restaurant, setRestaurant ] = useState<string>("")
 
