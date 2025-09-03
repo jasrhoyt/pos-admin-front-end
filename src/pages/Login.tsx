@@ -5,9 +5,10 @@ import { LoginTheme } from "../themes/LoginTheme";
 import { useState } from "react";
 import { useLogin } from "../services/useLogin";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { setUser } from "../redux/slices/userSlices";
 import {colors} from "../themes/colors";
+import {selectUser} from "../redux/selectors/userSelectors";
 
 export const Login = () => {
 
@@ -51,7 +52,6 @@ export const Login = () => {
                         flex: 1,
                         width: '100%',
                         height: '100%',
-                        //overflowY: "auto",
                         backgroundImage: `url(${backgroundImage})`,
                         backgroundPosition: "center",
                         backgroundSize: "cover",

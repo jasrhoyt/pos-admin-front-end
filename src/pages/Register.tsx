@@ -17,10 +17,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
+export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean }) => {
 
     const { getStates } = useRefData()
     const { postAdmin } = useAdmin();
+    const user = useSelector(selectUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -96,6 +97,22 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
         }
     };
 
+    const clearAllFields = () => {
+        setFirstName("");
+        setLastName("");
+        setCompanyName("");
+        setCompanyEmail("");
+        setPassword("");
+        setVerifyPassword("");
+        setStreetAddress("");
+        setCity("");
+        setState("");
+        setZipcode("");
+        setPhoneNumber("");
+        setErrorMessage("");
+        setCurrentSlide(0);
+    };
+
     useEffect(() => {
         (async () => {
             const states = await getStates();
@@ -157,9 +174,11 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                             backgroundColor: colors.secondaryColor
                         }}
                     >
-                        <CloseIcon />
+                        <CloseIcon onClick={() => {
+                            clearAllFields()
+                            user ? navigate("/dashboard") : navigate("/")
+                        }} />
                     </IconButton>
-                    {/* Slider Container */}
                     <Box
                         sx={{
                             overflow: "hidden",
@@ -174,7 +193,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                 transition: "transform 0.3s ease-in-out",
                             }}
                         >
-                            {/* Slide 1: User Info */}
                             <Box sx={{ width: "50%", paddingRight: "2rem" }}>
                                 <RegisterUserInfo
                                     firstName={firstName}
@@ -191,8 +209,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                     setVerifiedPassword={(inputString) => setVerifyPassword(inputString)}
                                 />
                             </Box>
-
-                            {/* Slide 2: Company Info + Button */}
                             <Box sx={{ width: "50%", paddingLeft: "2rem" }}>
                                 <Stack spacing={3}>
                                     <RegisterCompanyInfo
@@ -215,8 +231,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                             </Box>
                         </Box>
                     </Box>
-
-                    {/* Navigation Controls */}
                     <Box
                         sx={{
                             display: "flex",
@@ -235,8 +249,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                         >
                             <ArrowBackIcon />
                         </IconButton>
-
-                        {/* Slide Indicators */}
                         <Box
                             sx={{
                                 display: "flex",
@@ -258,7 +270,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                 />
                             ))}
                         </Box>
-
                         <IconButton
                             onClick={nextSlide}
                             disabled={currentSlide === 1}
