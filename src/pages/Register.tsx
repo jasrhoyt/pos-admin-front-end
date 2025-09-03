@@ -15,6 +15,7 @@ import {validate_password} from "../services/utilities";
 import {useRefData} from "../services/useRefDataServices";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
 
@@ -138,7 +139,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                 }}
             >
                 <Stack
-                    spacing={4}
+                    spacing={3}
                     sx={{
                         backgroundColor: colors.white,
                         width: { sm: "70%", lg: "40%", xl: "25%" },
@@ -147,45 +148,22 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                         position: "relative",
                     }}
                 >
-                    <Box
+                    <IconButton
                         sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
                             position: "absolute",
                             top: "1rem",
-                            left: "1rem",
                             right: "1rem",
-                            zIndex: 1,
+                            zIndex: 2,
+                            backgroundColor: colors.secondaryColor
                         }}
                     >
-                        <IconButton
-                            onClick={prevSlide}
-                            disabled={currentSlide === 0}
-                            sx={{
-                                visibility: currentSlide === 0 ? 'hidden' : 'visible',
-                                backgroundColor: colors.primaryColor
-                            }}
-                        >
-                            <ArrowBackIcon sx={{  }} />
-                        </IconButton>
-
-                        <IconButton
-                            onClick={nextSlide}
-                            disabled={currentSlide === 1}
-                            sx={{
-                                visibility: currentSlide === 1 ? 'hidden' : 'visible',
-                                backgroundColor: colors.primaryColor
-                            }}
-                        >
-                            <ArrowForwardIcon />
-                        </IconButton>
-                    </Box>
+                        <CloseIcon />
+                    </IconButton>
+                    {/* Slider Container */}
                     <Box
                         sx={{
                             overflow: "hidden",
                             width: "100%",
-                            marginTop: "2rem",
                         }}
                     >
                         <Box
@@ -196,6 +174,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                 transition: "transform 0.3s ease-in-out",
                             }}
                         >
+                            {/* Slide 1: User Info */}
                             <Box sx={{ width: "50%", paddingRight: "2rem" }}>
                                 <RegisterUserInfo
                                     firstName={firstName}
@@ -212,8 +191,10 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                                     setVerifiedPassword={(inputString) => setVerifyPassword(inputString)}
                                 />
                             </Box>
+
+                            {/* Slide 2: Company Info + Button */}
                             <Box sx={{ width: "50%", paddingLeft: "2rem" }}>
-                                <Stack spacing={4}>
+                                <Stack spacing={3}>
                                     <RegisterCompanyInfo
                                         streetAddress={streetAddress}
                                         setStreetAddress={setStreetAddress}
@@ -234,28 +215,60 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                             </Box>
                         </Box>
                     </Box>
+
+                    {/* Navigation Controls */}
                     <Box
                         sx={{
                             display: "flex",
-                            justifyContent: "center",
-                            gap: "0.5rem",
+                            justifyContent: "space-between",
+                            alignItems: "center",
                             marginTop: "1rem",
                         }}
                     >
-                        {[0, 1].map((slide) => (
-                            <Box
-                                key={slide}
-                                sx={{
-                                    width: "8px",
-                                    height: "8px",
-                                    borderRadius: "50%",
-                                    backgroundColor: currentSlide === slide ? colors.primaryColor : "grey.300",
-                                    cursor: "pointer",
-                                    transition: "background-color 0.2s",
-                                }}
-                                onClick={() => setCurrentSlide(slide)}
-                            />
-                        ))}
+                        <IconButton
+                            onClick={prevSlide}
+                            disabled={currentSlide === 0}
+                            sx={{
+                                visibility: currentSlide === 0 ? 'hidden' : 'visible',
+                                backgroundColor: colors.secondaryColor,
+                            }}
+                        >
+                            <ArrowBackIcon />
+                        </IconButton>
+
+                        {/* Slide Indicators */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                gap: "0.5rem",
+                            }}
+                        >
+                            {[0, 1].map((slide) => (
+                                <Box
+                                    key={slide}
+                                    sx={{
+                                        width: "8px",
+                                        height: "8px",
+                                        borderRadius: "50%",
+                                        backgroundColor: currentSlide === slide ? "primary.main" : "grey.300",
+                                        cursor: "pointer",
+                                        transition: "background-color 0.2s",
+                                    }}
+                                    onClick={() => setCurrentSlide(slide)}
+                                />
+                            ))}
+                        </Box>
+
+                        <IconButton
+                            onClick={nextSlide}
+                            disabled={currentSlide === 1}
+                            sx={{
+                                visibility: currentSlide === 1 ? 'hidden' : 'visible',
+                                backgroundColor: colors.secondaryColor,
+                            }}
+                        >
+                            <ArrowForwardIcon />
+                        </IconButton>
                     </Box>
                 </Stack>
             </Box>
