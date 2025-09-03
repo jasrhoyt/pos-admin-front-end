@@ -1,4 +1,4 @@
-import {Stack, Box, ThemeProvider, } from "@mui/material";
+import {Stack, Box, ThemeProvider, IconButton} from "@mui/material";
 import {useEffect, useState} from "react";
 import {RegisterTheme} from "../themes/RegisterTheme";
 import backgroundImage from "../assets/pooches.jpg";
@@ -13,7 +13,8 @@ import {RegisterButtonContainer} from "../components/Register/RegisterButtonCont
 import {colors} from "../themes/colors";
 import {validate_password} from "../services/utilities";
 import {useRefData} from "../services/useRefDataServices";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean}) => {
 
@@ -37,6 +38,7 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
     const currentUser = useSelector(selectUser)
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
+    const [ currentSlide, setCurrentSlide ] = useState<number>(0);
 
     const buttonCopy = isUserSettings ? "Update User Info" : "Register for PoS-Systems"
 
@@ -81,6 +83,18 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
         }
     }
 
+    const nextSlide = () => {
+        if (currentSlide < 1) {
+            setCurrentSlide(currentSlide + 1);
+        }
+    };
+
+    const prevSlide = () => {
+        if (currentSlide > 0) {
+            setCurrentSlide(currentSlide - 1);
+        }
+    };
+
     useEffect(() => {
         (async () => {
             const states = await getStates();
@@ -114,7 +128,6 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                     flex: 1,
                     width: "100%",
                     height: "100%",
-                    overflowY: "auto",
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundPosition: "center",
                     backgroundSize: "cover",
@@ -131,34 +144,119 @@ export const Register = ({ isUserSettings = false }:{ isUserSettings?: boolean})
                         width: { sm: "70%", lg: "40%", xl: "25%" },
                         padding: "2rem",
                         borderRadius: "8px",
+                        position: "relative",
                     }}
                 >
-                    <RegisterUserInfo
-                        firstName={firstName}
-                        setFirstName={(inputString) => setFirstName(inputString)}
-                        lastName={lastName}
-                        setLastName={(inputString) => setLastName(inputString)}
-                        companyName={companyName}
-                        setCompanyName={(inputString) => setCompanyName(inputString)}
-                        companyEmail={companyEmail}
-                        setCompanyEmail={(inputString) => setCompanyEmail(inputString)}
-                        password={password}
-                        setPassword={(inputString) => setPassword(inputString)}
-                        verifiedPassword={verifyPassword}
-                        setVerifiedPassword={(inputString) => setVerifyPassword(inputString)}
-                    />
-                    <RegisterCompanyInfo
-                        streetAddress={streetAddress}
-                        setStreetAddress={setStreetAddress}
-                        city={city} setCity={setCity}
-                        state={state} setState={setState}
-                        zipcode={zipcode}
-                        setZipcode={setZipcode}
-                        phoneNumber={phoneNumber}
-                        setPhoneNumber={setPhoneNumber}
-                        stateOptions={stateOptions}
-                    />
-                    <RegisterButtonContainer onRegisterButtonClick={() => onRegister()} errorMessage={errorMessage} buttonCopy={buttonCopy} />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            position: "absolute",
+                            top: "1rem",
+                            left: "1rem",
+                            right: "1rem",
+                            zIndex: 1,
+                        }}
+                    >
+                        <IconButton
+                            onClick={prevSlide}
+                            disabled={currentSlide === 0}
+                            sx={{
+                                visibility: currentSlide === 0 ? 'hidden' : 'visible',
+                                backgroundColor: colors.primaryColor
+                            }}
+                        >
+                            <ArrowBackIcon sx={{  }} />
+                        </IconButton>
+
+                        <IconButton
+                            onClick={nextSlide}
+                            disabled={currentSlide === 1}
+                            sx={{
+                                visibility: currentSlide === 1 ? 'hidden' : 'visible',
+                                backgroundColor: colors.primaryColor
+                            }}
+                        >
+                            <ArrowForwardIcon />
+                        </IconButton>
+                    </Box>
+                    <Box
+                        sx={{
+                            overflow: "hidden",
+                            width: "100%",
+                            marginTop: "2rem",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                width: "200%",
+                                transform: `translateX(-${currentSlide * 50}%)`,
+                                transition: "transform 0.3s ease-in-out",
+                            }}
+                        >
+                            <Box sx={{ width: "50%", paddingRight: "2rem" }}>
+                                <RegisterUserInfo
+                                    firstName={firstName}
+                                    setFirstName={(inputString) => setFirstName(inputString)}
+                                    lastName={lastName}
+                                    setLastName={(inputString) => setLastName(inputString)}
+                                    companyName={companyName}
+                                    setCompanyName={(inputString) => setCompanyName(inputString)}
+                                    companyEmail={companyEmail}
+                                    setCompanyEmail={(inputString) => setCompanyEmail(inputString)}
+                                    password={password}
+                                    setPassword={(inputString) => setPassword(inputString)}
+                                    verifiedPassword={verifyPassword}
+                                    setVerifiedPassword={(inputString) => setVerifyPassword(inputString)}
+                                />
+                            </Box>
+                            <Box sx={{ width: "50%", paddingLeft: "2rem" }}>
+                                <Stack spacing={4}>
+                                    <RegisterCompanyInfo
+                                        streetAddress={streetAddress}
+                                        setStreetAddress={setStreetAddress}
+                                        city={city} setCity={setCity}
+                                        state={state} setState={setState}
+                                        zipcode={zipcode}
+                                        setZipcode={setZipcode}
+                                        phoneNumber={phoneNumber}
+                                        setPhoneNumber={setPhoneNumber}
+                                        stateOptions={stateOptions}
+                                    />
+                                    <RegisterButtonContainer
+                                        onRegisterButtonClick={() => onRegister()}
+                                        errorMessage={errorMessage}
+                                        buttonCopy={buttonCopy}
+                                    />
+                                </Stack>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "0.5rem",
+                            marginTop: "1rem",
+                        }}
+                    >
+                        {[0, 1].map((slide) => (
+                            <Box
+                                key={slide}
+                                sx={{
+                                    width: "8px",
+                                    height: "8px",
+                                    borderRadius: "50%",
+                                    backgroundColor: currentSlide === slide ? colors.primaryColor : "grey.300",
+                                    cursor: "pointer",
+                                    transition: "background-color 0.2s",
+                                }}
+                                onClick={() => setCurrentSlide(slide)}
+                            />
+                        ))}
+                    </Box>
                 </Stack>
             </Box>
         </ThemeProvider>
