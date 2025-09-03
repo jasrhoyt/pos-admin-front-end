@@ -71,22 +71,19 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
             sx={{
                 padding: "2rem",
                 backgroundColor: colors.primaryColor,
-                minHeight: "120px", // Set your desired minimum height
-                flexShrink: 0, // Prevent the header from shrinking
             }}
         >
             <Grid spacing={1} container>
-                <Grid size={2} display="flex" justifyContent="center" alignItems="center">
+                <Grid size={2.5} display="flex" justifyContent="center" alignItems="center">
                     <FormControl fullWidth>
-                        {isRestaurantDropdownOpen && <InputLabel id="restaurant-label">Select Restaurant</InputLabel>}
-
+                        {isRestaurantDropdownOpen &&
+                            <InputLabel id="restaurant-label">Select Restaurant</InputLabel>
+                        }
                         <Select
                             labelId="restaurant-label"
                             value={restaurant || ''}
                             onOpen={() => {
-                                if (restaurantOptions.length > 1) {
-                                    setIsRestaurantDropdownOpen(true)
-                                }
+                                setIsRestaurantDropdownOpen(true)
                             }}
                             disabled={restaurantOptions.length < 2}
                             onClose={() => setIsRestaurantDropdownOpen(false)}
@@ -100,8 +97,10 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                                     return (
                                         <Typography
                                             sx={{
-                                                display: 'flex',
-                                                justifyContent: 'flex-start',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                                width: '100%',
                                             }}
                                         >
                                             Select Restaurant
@@ -140,7 +139,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                         </Typography>
                     </Box>
                 </Grid>
-                <Grid size={2} display="flex" justifyContent="center" alignItems="center">
+                <Grid size={1.5} display="flex" justifyContent="center" alignItems="center">
                     <SettingsIcon sx={{ cursor: "pointer", fontSize: "3rem" }} onClick={() => navigate("/settings")} />
                 </Grid>
             </Grid>
