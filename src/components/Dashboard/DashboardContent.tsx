@@ -1,9 +1,23 @@
-import {Box, IconButton, Typography} from "@mui/material";
-import {colors} from "../../themes/colors";
-import {Add} from "@mui/icons-material";
+import { Box } from "@mui/material";
+import { AddCategoryButton } from "./AddCategoryButton";
+import { Menu } from "./Menu";
+import { Reports } from "./Reports";
+import { Employees } from "./Employees";
+
+export const DashboardContent = ({ navbarIndex }: { navbarIndex: number }) => {
 
 
-export const DashboardContent = () => {
+    const renderContent = () => {
+        switch (navbarIndex) {
+            case 0:
+                return <Menu />;
+            case 1:
+                return <Reports />;
+            case 2:
+                return <Employees />;
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -11,32 +25,8 @@ export const DashboardContent = () => {
                 padding: 2,
             }}
         >
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    gap: 2,
-                }}
-            >
-                <IconButton
-                    sx={{
-                        backgroundColor: colors.primaryColor,
-                        color: colors.black,
-                        width: '48px',
-                        height: '48px',
-                        '&:hover': {
-                            backgroundColor: colors.tertiaryColor,
-                        }
-                    }}
-                >
-                    <Add sx={{ fontSize: '2rem' }} />
-                </IconButton>
-                <Typography variant="h6">Add New Category</Typography>
-            </Box>
-
-            {/* Rest of your content can go here */}
+            <AddCategoryButton />
+            {renderContent()}
         </Box>
-    )
-}
+    );
+};

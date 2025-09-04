@@ -1,10 +1,10 @@
 import {Box, Divider, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {colors} from "../../themes/colors";
+import {navItems} from "../../services/utilities";
 
 
-export const NavBar = () => {
+export const NavBar = ({ selectedIndex, onNavClick }:{ selectedIndex: number; onNavClick: (itemId: number) => void }) => {
     return (
-
         <Box
             sx={{
                 width: "15%",
@@ -13,64 +13,36 @@ export const NavBar = () => {
                 borderColor: "divider",
             }}
         >
-            <List component="nav" sx={{ p: 0 }}>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        // onClick={() => handleNavClick('Menu')}
-                        sx={{
-                            py: 2,
-                            px: 3,
-                            '&:hover': {
-                                backgroundColor: 'action.hover',
-                            },
-                        }}
-                    >
-                        <ListItemText
-                            primary="Menu"
-                            primaryTypographyProps={{
-                                variant: 'body1',
-                                fontWeight: 'medium',
-                            }}
-                        />
-                    </ListItemButton>
-                </ListItem>
-                <Divider />
-
-                <ListItem disablePadding>
-                    <ListItemButton
-                        // onClick={() => handleNavClick('Reports')}
-                        sx={{
-                            py: 2,
-                            px: 3,
-                            '&:hover': {
-                                backgroundColor: 'action.hover',
-                            },
-                        }}
-                    >
-                        <ListItemText
-                            primary="Reports"
-                        />
-                    </ListItemButton>
-                </ListItem>
-                <Divider />
-
-                <ListItem disablePadding>
-                    <ListItemButton
-                        // onClick={() => handleNavClick('Employees')}
-                        sx={{
-                            py: 2,
-                            px: 3,
-                            '&:hover': {
-                                backgroundColor: 'action.hover',
-                            },
-                        }}
-                    >
-                        <ListItemText
-                            primary="Employees"
-                        />
-                    </ListItemButton>
-                </ListItem>
+            <List sx={{ p: 0 }}>
+                {navItems.map((item, index) => (
+                    <Box key={item.id}>
+                        <ListItem disablePadding>
+                            <ListItemButton
+                                selected={selectedIndex === item.id}
+                                onClick={() => onNavClick(item.id)}
+                                sx={{
+                                    py: 2,
+                                    px: 3,
+                                    '&:hover': {
+                                        backgroundColor: 'action.hover',
+                                    },
+                                    '&.Mui-selected': {
+                                        backgroundColor: 'action.selected',
+                                        '&:hover': {
+                                            backgroundColor: 'action.selected',
+                                        },
+                                    },
+                                }}
+                            >
+                                <ListItemText
+                                    primary={item.label}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        {index < navItems.length - 1 && <Divider />}
+                    </Box>
+                ))}
             </List>
         </Box>
-    )
-}
+    );
+};
