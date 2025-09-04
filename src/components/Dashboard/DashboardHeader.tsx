@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {selectUser} from "../../redux/selectors/userSelectors";
-import {selectRestaurant} from "../../redux/selectors/restaurantSelector";
+import {selectRestaurant} from "../../redux/selectors/restaurantSelectors";
 import {useRestaurant} from "../../services/useRestaurant";
 import {useEffect, useState} from "react";
 import {Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";

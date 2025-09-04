@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IRestaurantState} from "../selectors/restaurantSelector";
+import {IRestaurantState} from "../selectors/restaurantSelectors";
 
 
 const initialState: IRestaurantState = {

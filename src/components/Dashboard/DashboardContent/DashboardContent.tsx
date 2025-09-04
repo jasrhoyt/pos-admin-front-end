@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { AddCategoryButton } from "../AddCategoryButton";
-import { Menu } from "./Menu";
+import { Menu } from "./Menu/Menu";
 import { Reports } from "./Reports";
 import { Employees } from "./Employees";
 
@@ -25,7 +25,6 @@ export const DashboardContent = ({ navbarIndex }: { navbarIndex: number }) => {
                 padding: 2,
             }}
         >
-            <AddCategoryButton />
             {renderContent()}
         </Box>
     );

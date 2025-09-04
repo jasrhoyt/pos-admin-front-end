@@ -30,7 +30,7 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
     const [ zipcode, setZipcode ] = useState<string>("");
 
     const { getStates } = useRefData()
-    const { postRestaurants } = useRestaurant()
+    const { postRestaurant } = useRestaurant()
     const currentUser = useSelector(selectUser)
     const [ isStateDropdownOpen, setIsStateDropdownOpen ] = useState(false);
     const [ stateOptions, setStateOptions ] = useState<any[]>([]);
@@ -55,7 +55,7 @@ export const AddRestaurantModal = ({ isOpen, onClose }:{ isOpen: boolean; onClos
                 zipcode: zipcode,
             }
         }
-        const response = await postRestaurants(
+        const response = await postRestaurant(
             currentUser.userId,
             restaurantName,
             email,

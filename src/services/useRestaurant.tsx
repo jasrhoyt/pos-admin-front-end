@@ -1,11 +1,11 @@
 import {useConfig} from "./useConfig";
 import axios from "axios";
 import {toNullIfEmpty} from "./utilities";
-import {IRestaurantState} from "../redux/selectors/restaurantSelector";
+import {IRestaurantState} from "../redux/selectors/restaurantSelectors";
 
 export const useRestaurant = (): {
     getRestaurants: (adminId?: number) => Promise<IRestaurantState[]>;
-    postRestaurants: (
+    postRestaurant: (
         adminId: number,
         restaurantName: string,
         restaurantEmail: string,
@@ -30,7 +30,7 @@ export const useRestaurant = (): {
             return e.response.data;
         }
     }
-    const postRestaurants = async (
+    const postRestaurant = async (
         adminId: number,
         restaurantName: string,
         restaurantEmail: string,
@@ -65,5 +65,5 @@ export const useRestaurant = (): {
         }
     }
 
-    return { getRestaurants, postRestaurants };
+    return { getRestaurants, postRestaurant };
 };
