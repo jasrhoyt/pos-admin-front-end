@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import {colors} from "../../themes/colors";
 import {NavBar} from "./NavBar";
-import {DashboardContent} from "./DashboardContent";
+import {DashboardContent} from "./DashboardContent/DashboardContent";
 import {MenuEnum} from "../../services/utilities";
 import {useState} from "react";
 

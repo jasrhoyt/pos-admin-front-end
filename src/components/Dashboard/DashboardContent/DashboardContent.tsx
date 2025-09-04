@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { AddCategoryButton } from "./AddCategoryButton";
+import { AddCategoryButton } from "../AddCategoryButton";
 import { Menu } from "./Menu";
 import { Reports } from "./Reports";
 import { Employees } from "./Employees";
