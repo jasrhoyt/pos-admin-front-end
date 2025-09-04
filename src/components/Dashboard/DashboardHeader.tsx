@@ -42,9 +42,14 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                 backgroundColor: colors.primaryColor,
             }}
         >
-            <Grid spacing={1} container>
-                <Grid size={2.5} display="flex" justifyContent="center" alignItems="center">
-                    <FormControl fullWidth>
+            <Grid container spacing={2}>
+                {/* First row: Select, Welcome text, and Settings - horizontally aligned */}
+                <Grid
+                    size={{ xs: 12, sm: 4, md: 3 }}
+                    display="flex"
+                    alignItems="center"
+                >
+                    <FormControl sx={{ minWidth: '200px', marginRight: '1rem' }}>
                         {isRestaurantDropdownOpen &&
                             <InputLabel id="restaurant-label">Select Restaurant</InputLabel>
                         }
@@ -89,26 +94,54 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                             ))}
                         </Select>
                     </FormControl>
-                    <AddLocationAlt sx={{ paddingLeft: "1rem", cursor: "pointer", fontSize: "3rem" }} onClick={() => onAddNewRestaurant()}/>
+                    <AddLocationAlt
+                        sx={{
+                            cursor: "pointer",
+                            fontSize: "3rem"
+                        }}
+                        onClick={() => onAddNewRestaurant()}
+                    />
                 </Grid>
-                <Grid size={8} display="flex" justifyContent="center" alignItems="center">
-                    <Box>
-                        <Typography variant="h2">
-                            Welcome to PoS-Systems {user.firstName}!
-                        </Typography>
-                        <Typography
-                            variant="h4"
-                            sx={{
-                                wordWrap: 'break-word',
-                                overflowWrap: 'break-word',
-                                hyphens: 'auto'
-                            }}
-                        >
-                            {restaurant || user.companyName}
-                        </Typography>
-                    </Box>
+
+                <Grid
+                    size={{ xs: 12, sm: 4, md: 8 }}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Typography variant="h3">
+                        Welcome to PoS-Systems {user.firstName}!
+                    </Typography>
                 </Grid>
-                <UserSettingsDropdown />
+
+                <Grid
+                    size={{ xs: 12, sm: 4, md: 1 }}
+                    display="flex"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                >
+                    <UserSettingsDropdown />
+                </Grid>
+
+                {/* Second row: Restaurant name - full width, centered */}
+                {/*<Grid*/}
+                {/*    size={12}*/}
+                {/*    display="flex"*/}
+                {/*    justifyContent="center"*/}
+                {/*    alignItems="center"*/}
+                {/*    sx={{ marginTop: '1rem' }}*/}
+                {/*>*/}
+                {/*    <Typography*/}
+                {/*        variant="h4"*/}
+                {/*        sx={{*/}
+                {/*            wordWrap: 'break-word',*/}
+                {/*            overflowWrap: 'break-word',*/}
+                {/*            hyphens: 'auto'*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        {restaurant || user.companyName}*/}
+                {/*    </Typography>*/}
+                {/*</Grid>*/}
             </Grid>
         </Box>
     )
