@@ -1,4 +1,4 @@
-
+import {Logout as LogoutIcon, Person as PersonIcon} from "@mui/icons-material";
 
 
 export const validate_password = (password?: string, verifiedPassword?: string) => {
@@ -25,5 +25,22 @@ export const navItems = [
     {
         id: MenuEnum.EMPLOYEES,
         label: "Employees"
+    }
+];
+
+export const menuItems = [
+    {
+        id: 'user-info',
+        label: 'User Info',
+        icon: PersonIcon,
+        action: 'userInfo',
+        showDivider: true
+    },
+    {
+        id: 'logout',
+        label: 'Logout',
+        icon: LogoutIcon,
+        action: 'logout',
+        showDivider: false
     }
 ];

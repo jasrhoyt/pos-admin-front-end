@@ -15,6 +15,9 @@ import {
 import { clearUser } from "../../redux/slices/userSlices";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {colors} from "../../themes/colors";
+import {menuItems} from "../../services/utilities";
+
 
 export const UserSettingsDropdown = () => {
 
@@ -33,14 +36,18 @@ export const UserSettingsDropdown = () => {
         setIsDropdownOpen(false);
     };
 
-    const handleLogout = () => {
-        navigate("/");
-        dispatch(clearUser());
-        handleClose();
-    };
-
-    const handleUserInfo = () => {
-        navigate("/settings");
+    const handleMenuItemClick = (action: string) => {
+        switch (action) {
+            case 'logout':
+                navigate("/");
+                dispatch(clearUser());
+                break;
+            case 'userInfo':
+                navigate("/settings");
+                break;
+            default:
+                break;
+        }
         handleClose();
     };
 
@@ -64,20 +71,32 @@ export const UserSettingsDropdown = () => {
                     vertical: 'top',
                     horizontal: 'center',
                 }}
+                slotProps={{
+                    paper: {
+                        sx: {
+                            backgroundColor: colors.tertiaryColor,
+                        }
+                    }
+                }}
             >
-                <MenuItem onClick={handleUserInfo}>
-                    <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>User Info</ListItemText>
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleLogout}>
-                    <ListItemIcon>
-                        <LogoutIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Logout</ListItemText>
-                </MenuItem>
+                {menuItems.map((item, index) => (
+                    <React.Fragment key={item.id}>
+                        <MenuItem
+                            onClick={() => handleMenuItemClick(item.action)}
+                            sx={{
+                                '&:hover': {
+                                    backgroundColor: 'action.hover', // Material-UI's default hover
+                                }
+                            }}
+                        >
+                            <ListItemIcon>
+                                <item.icon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText>{item.label}</ListItemText>
+                        </MenuItem>
+                        {item.showDivider && index < menuItems.length - 1 && <Divider />}
+                    </React.Fragment>
+                ))}
             </Menu>
         </Grid>
     );
