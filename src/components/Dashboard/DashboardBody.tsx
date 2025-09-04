@@ -1,5 +1,6 @@
-import {Box, Divider, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
+import {Box, Divider, IconButton, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {colors} from "../../themes/colors";
+import { Add } from "@mui/icons-material";
 
 export const DashboardBody = () => {
 
@@ -55,10 +56,6 @@ export const DashboardBody = () => {
                         >
                             <ListItemText
                                 primary="Reports"
-                                primaryTypographyProps={{
-                                    variant: 'body1',
-                                    fontWeight: 'medium',
-                                }}
                             />
                         </ListItemButton>
                     </ListItem>
@@ -77,25 +74,43 @@ export const DashboardBody = () => {
                         >
                             <ListItemText
                                 primary="Employees"
-                                primaryTypographyProps={{
-                                    variant: 'body1',
-                                    fontWeight: 'medium',
-                                }}
                             />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </Box>
-
-            {/* Main Content Area */}
             <Box
                 sx={{
                     flex: 1,
-                    padding: 4,
-                    overflow: "auto",
+                    padding: 2,
                 }}
             >
-                {/*{renderContent()}*/}
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        gap: 2,
+                    }}
+                >
+                    <IconButton
+                        sx={{
+                            backgroundColor: colors.primaryColor,
+                            color: colors.black,
+                            width: '48px',
+                            height: '48px',
+                            '&:hover': {
+                                backgroundColor: colors.tertiaryColor,
+                            }
+                        }}
+                    >
+                        <Add sx={{ fontSize: '2rem' }} />
+                    </IconButton>
+                    <Typography variant="h6">Add New Category</Typography>
+                </Box>
+
+                {/* Rest of your content can go here */}
             </Box>
         </Box>
     )

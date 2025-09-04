@@ -48,6 +48,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                     size={{ xs: 12, sm: 4, md: 3 }}
                     display="flex"
                     alignItems="center"
+                    justifyContent="center"
                 >
                     <FormControl sx={{ minWidth: '200px', marginRight: '1rem' }}>
                         {isRestaurantDropdownOpen &&
@@ -117,7 +118,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
                 <Grid
                     size={{ xs: 12, sm: 4, md: 1 }}
                     display="flex"
-                    justifyContent="flex-end"
+                    justifyContent="center"
                     alignItems="center"
                 >
                     <UserSettingsDropdown />
