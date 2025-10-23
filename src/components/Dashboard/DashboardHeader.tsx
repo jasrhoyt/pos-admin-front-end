@@ -25,7 +25,7 @@ export const DashboardHeader = ({ onAddNewRestaurant }:{ onAddNewRestaurant: () 
             const restaurants = await getRestaurants(user.userId);
             setRestaurantOptions(restaurants);
         })();
-    }, [onAddNewRestaurant]);
+    }, [onAddNewRestaurant]); // for a github test
 
     useEffect(() => {
         if (currentRestaurant.restaurantName) {
